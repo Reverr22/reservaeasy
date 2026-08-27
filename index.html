@@ -1367,181 +1367,171 @@ calendar.appendChild(day);
 
 function renderCalendar(){
 
-calendar.innerHTML="";
+  calendar.innerHTML="";
 
-const year =
-currentMonth.getFullYear();
+  const year = currentMonth.getFullYear();
+  const month = currentMonth.getMonth();
 
-const month =
-currentMonth.getMonth();
+  monthTitle.textContent =
+    currentMonth.toLocaleDateString(
+      "es-ES",
+      {
+        month:"long",
+        year:"numeric"
+      }
+    );
 
+  const firstDay =
+    new Date(year, month, 1);
 
-monthTitle.textContent =
-currentMonth.toLocaleDateString(
-"es-ES",
-{
-month:"long",
-year:"numeric"
-}
-);
+  const weekday =
+    firstDay.getDay();
 
+  const offset =
+    (weekday + 6) % 7;
 
-const firstDay =
-new Date(
-year,
-month,
-1
-);
+  for(let i=0;i<offset;i++){
 
-const weekday =
-firstDay.getDay();
+    const empty =
+      document.createElement("div");
 
-const offset =
-(weekday+6)%7;
+    empty.className="day empty";
 
+    calendar.appendChild(empty);
 
-for(
-let i=0;
-i<offset;
-i++
-){
+  }
 
-const empty =
-document.createElement("div");
+  const days =
+    new Date(
+      year,
+      month + 1,
+      0
+    ).getDate();
 
-empty.className=
-"day empty";
+  const today = new Date();
 
-calendar.appendChild(empty);
+  today.setHours(0,0,0,0);
 
-}
+  for(let d=1; d<=days; d++){
 
+    const fecha =
+      formatDate(
+        new Date(year, month, d)
+      );
 
-const days =
-new Date(
-year,
-month+1,
-0
-).getDate();
+    const fechaDia =
+      new Date(year, month, d);
 
+    fechaDia.setHours(0,0,0,0);
 
-const today =
-todayString();
+    const times =
+      availability[fecha];
 
+    const count =
+      Array.isArray(times)
+      ? times.length
+      : 0;
 
-for(
-let d=1;
-d<=days;
-d++
-){
+    const day =
+      document.createElement("div");
 
-const fecha =
-formatDate(
-new Date(
-year,
-month,
-d
-)
-);
-
-const times =
-availability[fecha];
-
-const count =
-Array.isArray(times)
-? times.length
-: 0;
+    day.className="day";
 
 
-const day =
-document.createElement("div");
+    /* DÍAS PASADOS */
 
-day.className="day";
+    if(fechaDia < today){
 
+      day.classList.add("disabled");
+      day.classList.add("none");
 
-/*
-   Disponibilidad
-*/
+      day.innerHTML=`
 
-if(count>=7){
+        <div class="day-number">
+          ${d}
+        </div>
 
-day.classList.add("high");
+        <div class="availability-line"></div>
 
-}
-else if(count>=4){
+      `;
 
-day.classList.add("medium");
+      calendar.appendChild(day);
 
-}
-else if(count>=1){
-
-day.classList.add("low");
-
-}
-else{
-
-day.classList.add("none");
-
-day.classList.add("disabled");
-
-}
+      continue;
+    }
 
 
-/*
-   Hoy
-*/
+    /* DISPONIBILIDAD */
 
-if(fecha===today){
+    if(count >= 7){
 
-day.classList.add("today");
+      day.classList.add("high");
 
-}
+    }
+    else if(count >= 4){
 
+      day.classList.add("medium");
 
-/*
-   Seleccionado
-*/
+    }
+    else if(count >= 1){
 
-if(selectedDate===fecha){
+      day.classList.add("low");
 
-day.classList.add("selected");
+    }
+    else{
 
-}
+      day.classList.add("none");
+      day.classList.add("disabled");
 
-
-day.innerHTML=`
-
-<div class="day-number">
-${d}
-</div>
-
-<div class="availability-line"></div>
-
-`;
+    }
 
 
-/*
-   Solo se puede seleccionar
-   si hay horas disponibles.
-*/
+    /* HOY */
 
-if(count>0){
+    if(fechaDia.getTime() === today.getTime()){
 
-day.onclick=()=>{
+      day.classList.add("today");
 
-selectDate(fecha);
+    }
 
-};
+
+    /* FECHA SELECCIONADA */
+
+    if(selectedDate === fecha){
+
+      day.classList.add("selected");
+
+    }
+
+
+    day.innerHTML=`
+
+      <div class="day-number">
+        ${d}
+      </div>
+
+      <div class="availability-line"></div>
+
+    `;
+
+
+    /* SOLO DÍAS CON HORAS */
+
+    if(count > 0){
+
+      day.onclick = () => {
+
+        selectDate(fecha);
+
+      };
+
+    }
+
+    calendar.appendChild(day);
+
+  }
 
 }
-
-
-calendar.appendChild(day);
-
-}
-
-}
-
 
 /* ==========================================
    SELECCIONAR FECHA
