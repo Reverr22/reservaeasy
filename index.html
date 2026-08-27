@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Reserva tu cita</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f5f7fa;color:#15171a}
+header{height:72px;background:#fff;border-bottom:1px solid #e8eaed;display:flex;align-items:center;padding:0 7%;font-size:23px;font-weight:800;color:#222}
+.container{max-width:1180px;margin:40px auto;padding:0 20px;display:grid;grid-template-columns:285px 1fr;gap:30px}
+.card{background:#fff;border-radius:14px;box-shadow:0 7px 24px #18233a12}
+.profile{padding:24px;text-align:center;height:max-content}.avatar{width:105px;height:105px;border-radius:50%;margin:0 auto 18px;background:#f0f1f3;display:flex;align-items:center;justify-content:center;color:#777;font-size:27px;font-weight:800}
+.profile h2{margin:0 0 8px;font-size:21px}.profile p{color:#6b7280;font-size:14px;margin:8px 0}
+.main{padding:28px 20px 20px}.steps{display:grid;grid-template-columns:1fr 1fr 1fr;margin-bottom:30px;color:#9ca3af}.step{text-align:center;font-size:13px}.circle{margin:auto auto 7px;width:27px;height:27px;border-radius:50%;background:#e5e7eb;display:flex;align-items:center;justify-content:center;font-weight:700}.active{color:#222}.active .circle{background:#222;color:#fff}
+h1{font-size:24px;margin:0 0 7px}.sub{color:#6b7280;margin:0 0 24px}.services{display:grid;gap:11px}
+.service{border:1px solid #dfe3e8;border-radius:10px;padding:18px 16px;cursor:pointer;display:grid;grid-template-columns:1fr auto}.service.selected{border-color:#222;box-shadow:0 0 0 2px #22212}.service h3{margin:5px 0;font-size:18px}.meta{color:#667085;font-size:14px}.price{font-weight:800;font-size:18px}.check{margin-top:10px;width:22px;height:22px;border-radius:50%;background:#d9dee7;color:#fff;text-align:center;line-height:22px}.selected .check{background:#222}
+.actions{border-top:1px solid #e5e7eb;margin-top:28px;padding-top:20px;display:flex;justify-content:flex-end}
+button{border:0;border-radius:9px;background:#222;color:#fff;padding:12px 22px;font-weight:700;cursor:pointer}button:disabled{background:#c9cbd3;cursor:not-allowed}.back{background:#fff;color:#777;border:1px solid #e5e7eb;margin-right:auto}
+.hidden{display:none}.datebox{border:1px solid #dfe3e8;border-radius:9px;padding:14px;width:100%;font-size:16px;margin-bottom:20px}.slots{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.slot{background:#fff;border:1px solid #dfe3e8;color:#222;padding:12px;border-radius:8px}.slot.selected{background:#222;color:#fff;border-color:#222}
+.form{display:grid;gap:12px;max-width:600px}.form input{padding:13px;border:1px solid #dfe3e8;border-radius:8px;font-size:15px}.summary{background:#f7f7f8;border-radius:10px;padding:16px;margin:20px 0;color:#4b5563}.success{text-align:center;padding:55px 20px}.success .ok{font-size:55px}
+@media(max-width:800px){.container{grid-template-columns:1fr}.profile{display:none}.slots{grid-template-columns:repeat(3,1fr)}}@media(max-width:480px){.slots{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<header>◫ Reserva tu cita</header>
+<div class="container">
+<aside class="card profile">
+<div class="avatar">LOGO</div>
+<h2>Nombre del negocio</h2>
+<p>Tu profesión o servicio</p>
+<p>📍 Tu dirección</p>
+</aside>
+<main class="card main">
+<div class="steps">
+<div class="step active" id="st1"><div class="circle">1</div>Servicio</div>
+<div class="step" id="st2"><div class="circle">2</div>Fecha</div>
+<div class="step" id="st3"><div class="circle">3</div>Información</div>
+</div>
+
+<section id="s1">
+<h1>Selecciona un servicio</h1>
+<p class="sub">Elige el servicio que quieres reservar</p>
+<div class="services" id="services"></div>
+<div class="actions"><button id="next1" disabled>Siguiente →</button></div>
+</section>
+
+<section id="s2" class="hidden">
+<h1>Selecciona fecha y hora</h1>
+<p class="sub" id="chosen"></p>
+<input class="datebox" id="date" type="date">
+<h3>Horas disponibles</h3>
+<div class="slots" id="slots"></div>
+<div class="actions"><button class="back" onclick="show(1)">← Anterior</button><button id="next2" disabled>Siguiente →</button></div>
+</section>
+
+<section id="s3" class="hidden">
+<h1>Tus datos</h1>
+<p class="sub">Completa tus datos para confirmar la reserva</p>
+<div class="summary" id="summary"></div>
+<div class="form">
+<input id="name" placeholder="Nombre y apellidos">
+<input id="phone" placeholder="Teléfono">
+<input id="email" type="email" placeholder="Email (opcional)">
+</div>
+<div class="actions"><button class="back" onclick="show(2)">← Anterior</button><button id="reserve">Confirmar reserva</button></div>
+</section>
+
+<section id="ok" class="hidden success">
+<div class="ok">✓</div><h1>Reserva confirmada</h1>
+<p class="sub" id="oktext"></p>
+</section>
+</main>
+</div>
+
+<script>
+const servicesEl=document.getElementById("services"),next1=document.getElementById("next1"),chosen=document.getElementById("chosen"),slots=document.getElementById("slots"),next2=document.getElementById("next2"),date=document.getElementById("date"),summary=document.getElementById("summary"),name=document.getElementById("name"),phone=document.getElementById("phone"),s3=document.getElementById("s3"),ok=document.getElementById("ok"),st2=document.getElementById("st2"),st3=document.getElementById("st3"),oktext=document.getElementById("oktext");
+
+const services=[
+{name:"Servicio 1",duration:30,price:0},
+{name:"Servicio 2",duration:45,price:0},
+{name:"Servicio 3",duration:60,price:0},
+{name:"Servicio 4",duration:30,price:0}
+];
+
+services.forEach(x=>{
+let e=document.createElement("div");e.className="service";
+e.innerHTML='<div><div class="meta">◷ '+x.duration+' minutos</div><h3>'+x.name+'</h3></div><div><div class="price">'+(x.price?'€'+x.price:'Consultar')+'</div><div class="check">✓</div></div>';
+e.onclick=()=>{document.querySelectorAll(".service").forEach(a=>a.classList.remove("selected"));e.classList.add("selected");svc=x;next1.disabled=false};
+servicesEl.appendChild(e)
+});
+let svc=null,time=null;
+function show(n){["s1","s2","s3","ok"].forEach(x=>document.getElementById(x).classList.add("hidden"));document.getElementById(n==1?"s1":n==2?"s2":n==3?"s3":"ok").classList.remove("hidden");st2.classList.toggle("active",n>=2);st3.classList.toggle("active",n>=3)}
+next1.onclick=()=>{chosen.textContent=svc.name+" · "+svc.duration+" minutos";show(2);loadSlots()};
+function loadSlots(){slots.innerHTML="";["09:00","09:30","10:00","10:30","11:00","11:30","12:00","16:00","16:30","17:00","17:30","18:00","18:30","19:00"].forEach(t=>{let b=document.createElement("button");b.className="slot";b.textContent=t;b.onclick=()=>{document.querySelectorAll(".slot").forEach(x=>x.classList.remove("selected"));b.classList.add("selected");time=t;next2.disabled=false};slots.appendChild(b)})}
+next2.onclick=()=>{summary.innerHTML="<b>"+svc.name+"</b><br>📅 "+date.value+"<br>🕐 "+time+"<br>⏱️ "+svc.duration+" minutos";show(3)}
+reserve.onclick=()=>{if(!name.value.trim()||!phone.value.trim())return alert("Rellena nombre y teléfono.");s3.classList.add("hidden");ok.classList.remove("hidden");oktext.textContent=svc.name+" · "+date.value+" a las "+time+".";};
+</script>
+</body>
+</html>
