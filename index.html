@@ -1,1183 +1,1705 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Reserva tu cita</title>
 
 <style>
-:root{
-  --primary:#171717;
-  --primary-hover:#333;
-  --background:#f6f7f8;
-  --card:#ffffff;
-  --border:#e6e8eb;
-  --muted:#707780;
-  --success:#18864b;
-}
-
 *{
-  box-sizing:border-box;
+  box-sizing:border-box
 }
 
 body{
   margin:0;
-  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
-  background:var(--background);
-  color:#171717;
+  font-family:Arial,sans-serif;
+  background:#f5f7fa;
+  color:#15171a
 }
-
-button,input{
-  font:inherit;
-}
-
-/* HEADER */
 
 header{
-  height:70px;
+  height:72px;
   background:#fff;
-  border-bottom:1px solid var(--border);
+  border-bottom:1px solid #e8eaed;
   display:flex;
   align-items:center;
-  padding:0 6%;
-}
-
-.logo{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  font-size:21px;
+  padding:0 7%;
+  font-size:23px;
   font-weight:800;
+  color:#222
 }
-
-.logo-icon{
-  width:34px;
-  height:34px;
-  border-radius:9px;
-  background:#171717;
-  color:#fff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-/* LAYOUT */
 
 .container{
-  max-width:1120px;
-  margin:42px auto;
+  max-width:1250px;
+  margin:35px auto;
   padding:0 20px;
-
   display:grid;
-  grid-template-columns:290px 1fr;
-  gap:28px;
+  grid-template-columns:285px 1fr;
+  gap:30px
 }
 
-/* PROFILE */
+.card{
+  background:#fff;
+  border-radius:14px;
+  box-shadow:0 7px 24px #18233a12
+}
+
+/* PERFIL */
 
 .profile{
-  background:#fff;
-  border:1px solid var(--border);
-  border-radius:16px;
-  padding:26px 22px;
-  height:max-content;
+  padding:24px;
   text-align:center;
+  height:max-content
 }
 
 .avatar{
   width:105px;
   height:105px;
   border-radius:50%;
-  background:#eeeeee;
-
   margin:0 auto 18px;
-
+  background:#f0f1f3;
   display:flex;
   align-items:center;
   justify-content:center;
-
-  color:#888;
-  font-size:17px;
-  font-weight:800;
+  color:#777;
+  font-size:18px;
+  font-weight:800
 }
 
 .profile h2{
-  margin:0;
-  font-size:21px;
+  margin:0 0 8px;
+  font-size:21px
 }
 
-.profile-role{
-  margin:7px 0 0;
-  color:#666;
+.profile p{
+  color:#6b7280;
   font-size:14px;
+  margin:8px 0
 }
 
-.profile-location{
-  margin:14px 0 0;
-  padding-top:14px;
-  border-top:1px solid var(--border);
-  color:#777;
-  font-size:13px;
+.rating{
+  margin:18px 0;
+  font-size:14px
+}
+
+.rating span{
+  color:#f59e0b;
+  font-size:20px
 }
 
 /* MAIN */
 
 .main{
-  background:#fff;
-  border:1px solid var(--border);
-  border-radius:16px;
-  padding:28px;
+  padding:28px 20px 20px
 }
 
-/* STEPS */
+/* PASOS */
 
 .steps{
   display:grid;
-  grid-template-columns:repeat(4,1fr);
-  margin-bottom:34px;
+  grid-template-columns:1fr 1fr 1fr 1fr;
+  margin-bottom:30px;
+  color:#9ca3af
 }
 
 .step{
   text-align:center;
-  color:#a0a5ab;
-  font-size:12px;
+  font-size:13px;
+  position:relative
 }
 
-.step-number{
-  width:30px;
-  height:30px;
+.step:not(:last-child):after{
+  content:"";
+  position:absolute;
+  top:13px;
+  left:65%;
+  width:70%;
+  height:3px;
+  background:#e5e7eb;
+  z-index:0
+}
+
+.circle{
+  margin:auto auto 7px;
+  width:27px;
+  height:27px;
   border-radius:50%;
-  background:#e9ebed;
-
-  margin:0 auto 7px;
-
+  background:#e5e7eb;
   display:flex;
   align-items:center;
   justify-content:center;
-
   font-weight:700;
+  position:relative;
+  z-index:2
 }
 
-.step.active{
-  color:#171717;
+.active{
+  color:#6d5ce7
 }
 
-.step.active .step-number{
-  background:#171717;
-  color:#fff;
+.active .circle{
+  background:#6d5ce7;
+  color:#fff
 }
 
-/* TITLES */
+.completed .circle{
+  background:#222;
+  color:#fff
+}
+
+/* SECCIONES */
 
 h1{
-  margin:0;
   font-size:25px;
-  letter-spacing:-.3px;
+  margin:0 0 7px
 }
 
-.subtitle{
-  margin:7px 0 26px;
-  color:var(--muted);
-  font-size:14px;
+.sub{
+  color:#6b7280;
+  margin:0 0 24px
 }
 
-/* SERVICES */
+.hidden{
+  display:none!important
+}
+
+/* SERVICIOS */
 
 .services{
   display:grid;
-  gap:12px;
+  gap:11px
 }
 
 .service{
-  border:1px solid var(--border);
-  border-radius:12px;
-  padding:17px;
-
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-
+  border:1px solid #dfe3e8;
+  border-radius:10px;
+  padding:18px 16px;
   cursor:pointer;
-  transition:.15s;
+  display:grid;
+  grid-template-columns:1fr auto;
+  transition:.15s
 }
 
 .service:hover{
-  border-color:#aaa;
+  border-color:#aaa
 }
 
 .service.selected{
-  border:2px solid #171717;
-  padding:16px;
-  background:#fafafa;
+  border-color:#6d5ce7;
+  box-shadow:0 0 0 2px #6d5ce722
 }
 
-.service-name{
-  font-size:16px;
-  font-weight:700;
+.service h3{
+  margin:5px 0;
+  font-size:18px
 }
 
-.service-meta{
-  margin-top:6px;
-  color:#777;
-  font-size:13px;
+.meta{
+  color:#667085;
+  font-size:14px
 }
 
-.service-price{
-  font-size:16px;
+.price{
   font-weight:800;
+  font-size:18px
 }
 
-.service-check{
-  width:21px;
-  height:21px;
+.check{
+  margin-top:10px;
+  width:22px;
+  height:22px;
   border-radius:50%;
-  background:#e1e3e5;
+  background:#d9dee7;
+  color:#fff;
+  text-align:center;
+  line-height:22px
+}
 
-  margin-top:8px;
+.selected .check{
+  background:#6d5ce7
+}
 
+/* CALENDARIO */
+
+.booking-layout{
+  display:grid;
+  grid-template-columns:1fr 390px;
+  gap:35px
+}
+
+.calendar-wrapper{
+  min-width:0
+}
+
+.calendar-header{
   display:flex;
   align-items:center;
-  justify-content:center;
-
-  color:#fff;
-  font-size:12px;
+  justify-content:space-between;
+  margin-bottom:20px
 }
 
-.service.selected .service-check{
-  background:#171717;
+.month-title{
+  font-size:20px;
+  font-weight:800;
+  text-transform:capitalize
 }
 
-/* DATE */
+.month-btn{
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  border:1px solid #e5e7eb;
+  background:#fff;
+  cursor:pointer;
+  font-size:20px;
+  color:#333;
+  padding:0
+}
 
-.date-input{
-  width:100%;
-  border:1px solid var(--border);
+.month-btn:hover{
+  background:#f5f5f5
+}
+
+.weekdays{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  margin-bottom:10px;
+  color:#6b7280;
+  font-size:13px;
+  text-align:center
+}
+
+.calendar{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:7px
+}
+
+.day{
+  min-height:67px;
+  border-radius:10px;
+  border:1px solid transparent;
+  background:#fff;
+  cursor:pointer;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+  padding-top:8px;
+  transition:.15s
+}
+
+.day:hover{
+  background:#f8f8fb
+}
+
+.day.empty{
+  cursor:default;
+  background:transparent
+}
+
+.day.disabled{
+  cursor:not-allowed;
+  opacity:.42
+}
+
+.day-number{
+  font-size:15px;
+  font-weight:600
+}
+
+.day.today .day-number{
+  font-weight:900
+}
+
+.day.selected{
+  background:#f0edff;
+  border-color:#6d5ce7
+}
+
+.day.selected .day-number{
+  color:#5d4bd8
+}
+
+/* INDICADORES */
+
+.availability-line{
+  width:28px;
+  height:4px;
+  border-radius:10px;
+  margin-top:8px
+}
+
+.high .availability-line{
+  background:#16a34a;
+  width:34px
+}
+
+.medium .availability-line{
+  background:#f59e0b;
+  width:24px
+}
+
+.low .availability-line{
+  background:#ef4444;
+  width:7px;
+  height:7px;
+  border-radius:50%
+}
+
+.none .availability-line{
+  background:#d1d5db;
+  width:20px
+}
+
+/* LEYENDA */
+
+.legend{
+  margin-top:22px;
+  border:1px solid #e5e7eb;
   border-radius:10px;
   padding:14px;
-
-  margin-bottom:24px;
-
-  outline:none;
-  background:#fff;
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  flex-wrap:wrap;
+  font-size:12px;
+  color:#555
 }
 
-.date-input:focus{
-  border-color:#555;
+.legend-item{
+  display:flex;
+  align-items:center;
+  gap:7px
 }
 
-/* SLOTS */
+.legend-line{
+  width:25px;
+  height:4px;
+  border-radius:5px
+}
 
-.slots-title{
-  font-size:15px;
+.legend-green{
+  background:#16a34a
+}
+
+.legend-yellow{
+  background:#f59e0b
+}
+
+.legend-red{
+  background:#ef4444;
+  width:7px;
+  height:7px;
+  border-radius:50%
+}
+
+.legend-gray{
+  background:#d1d5db
+}
+
+/* HORAS */
+
+.time-panel{
+  border-left:1px solid #e5e7eb;
+  padding-left:30px
+}
+
+.selected-date{
+  font-size:18px;
+  font-weight:800;
+  margin-bottom:6px;
+  text-transform:capitalize
+}
+
+.date-description{
+  color:#6b7280;
+  font-size:14px;
+  margin-bottom:22px
+}
+
+.time-title{
+  font-size:17px;
+  font-weight:800;
+  margin-bottom:14px
+}
+
+.time-group{
+  margin-bottom:22px
+}
+
+.time-group-title{
+  font-size:14px;
   font-weight:700;
-  margin-bottom:12px;
+  margin-bottom:10px;
+  color:#555
 }
 
 .slots{
   display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:10px;
+  grid-template-columns:repeat(3,1fr);
+  gap:9px
 }
 
 .slot{
   background:#fff;
-  border:1px solid var(--border);
-  border-radius:9px;
-
-  padding:12px 8px;
-
+  border:1px solid #dfe3e8;
   color:#222;
+  padding:12px 5px;
+  border-radius:8px;
   cursor:pointer;
+  font-size:14px;
+  transition:.15s
 }
 
 .slot:hover{
-  border-color:#555;
+  border-color:#6d5ce7;
+  color:#6d5ce7
 }
 
 .slot.selected{
-  background:#171717;
+  background:#6d5ce7;
   color:#fff;
-  border-color:#171717;
+  border-color:#6d5ce7
 }
 
-/* FORM */
+.no-hours{
+  color:#9ca3af;
+  font-size:14px;
+  padding:10px 0
+}
+
+.date-info{
+  background:#f7f5ff;
+  border:1px solid #e2ddff;
+  border-radius:10px;
+  padding:15px;
+  margin-top:20px;
+  font-size:13px;
+  color:#555
+}
+
+.date-info strong{
+  color:#4f46b5
+}
+
+/* ACCIONES */
+
+.actions{
+  border-top:1px solid #e5e7eb;
+  margin-top:28px;
+  padding-top:20px;
+  display:flex;
+  justify-content:flex-end
+}
+
+button{
+  border:0;
+  border-radius:9px;
+  background:#6d5ce7;
+  color:#fff;
+  padding:12px 22px;
+  font-weight:700;
+  cursor:pointer
+}
+
+button:disabled{
+  background:#c9cbd3;
+  cursor:not-allowed
+}
+
+.back{
+  background:#fff;
+  color:#555;
+  border:1px solid #e5e7eb;
+  margin-right:auto
+}
+
+/* FORMULARIO */
 
 .form{
   display:grid;
   gap:12px;
-  max-width:600px;
+  max-width:600px
 }
 
-.input{
-  width:100%;
-  padding:14px;
-
-  border:1px solid var(--border);
-  border-radius:9px;
-
-  outline:none;
+.form input{
+  padding:13px;
+  border:1px solid #dfe3e8;
+  border-radius:8px;
+  font-size:15px
 }
-
-.input:focus{
-  border-color:#555;
-}
-
-/* SUMMARY */
 
 .summary{
   background:#f7f7f8;
-  border-radius:11px;
-
-  padding:18px;
-  margin-bottom:20px;
-
-  font-size:14px;
-  line-height:1.8;
+  border-radius:10px;
+  padding:16px;
+  margin:20px 0;
+  color:#4b5563
 }
-
-.summary-title{
-  font-weight:800;
-  font-size:16px;
-}
-
-/* ACTIONS */
-
-.actions{
-  border-top:1px solid var(--border);
-
-  margin-top:30px;
-  padding-top:20px;
-
-  display:flex;
-  justify-content:flex-end;
-}
-
-.button{
-  border:0;
-  border-radius:9px;
-
-  background:#171717;
-  color:#fff;
-
-  padding:13px 22px;
-
-  font-weight:700;
-
-  cursor:pointer;
-}
-
-.button:hover{
-  background:#333;
-}
-
-.button:disabled{
-  background:#c9cdd1;
-  cursor:not-allowed;
-}
-
-.button-back{
-  margin-right:auto;
-
-  background:#fff;
-  color:#555;
-
-  border:1px solid var(--border);
-}
-
-.button-back:hover{
-  background:#f7f7f7;
-}
-
-/* SUCCESS */
 
 .success{
   text-align:center;
-  padding:60px 20px;
+  padding:55px 20px
 }
 
-.success-icon{
-  width:64px;
-  height:64px;
-
-  margin:0 auto 20px;
-
-  border-radius:50%;
-
-  background:#e6f5ec;
-  color:var(--success);
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  font-size:30px;
-  font-weight:800;
+.success .ok{
+  font-size:55px;
+  color:#16a34a
 }
 
-.success p{
-  color:#777;
+/* RESPONSIVE */
+
+@media(max-width:950px){
+
+  .booking-layout{
+    grid-template-columns:1fr
+  }
+
+  .time-panel{
+    border-left:0;
+    border-top:1px solid #e5e7eb;
+    padding-left:0;
+    padding-top:25px
+  }
+
 }
-
-/* HIDDEN */
-
-.hidden{
-  display:none!important;
-}
-
-/* MOBILE */
 
 @media(max-width:800px){
 
   .container{
-    grid-template-columns:1fr;
-    margin:20px auto;
+    grid-template-columns:1fr
   }
 
   .profile{
-    display:none;
+    display:none
   }
 
-  .main{
-    padding:22px 17px;
-  }
-
-  .slots{
-    grid-template-columns:repeat(3,1fr);
-  }
 }
 
-@media(max-width:480px){
+@media(max-width:550px){
 
   header{
     padding:0 20px;
+    font-size:20px
+  }
+
+  .main{
+    padding:20px 14px
   }
 
   .steps{
-    grid-template-columns:repeat(4,1fr);
+    grid-template-columns:repeat(4,1fr)
   }
 
   .step{
-    font-size:10px;
+    font-size:11px
+  }
+
+  .step:not(:last-child):after{
+    width:60%
+  }
+
+  .day{
+    min-height:58px
+  }
+
+  .day-number{
+    font-size:14px
+  }
+
+  .calendar{
+    gap:4px
   }
 
   .slots{
-    grid-template-columns:repeat(2,1fr);
+    grid-template-columns:repeat(3,1fr)
   }
 
-  h1{
-    font-size:22px;
-  }
 }
 </style>
 </head>
 
 <body>
 
-<header>
-
-  <div class="logo">
-    <div class="logo-icon">✓</div>
-    <span id="headerName">Reserva tu cita</span>
-  </div>
-
-</header>
-
+<header>◫ Reserva tu cita</header>
 
 <div class="container">
 
-  <!-- PERFIL DEL NEGOCIO -->
+<!-- PERFIL -->
 
-  <aside class="profile">
+<aside class="card profile">
 
-    <div class="avatar" id="businessLogo">
-      LOGO
-    </div>
+<div class="avatar">LOGO</div>
 
-    <h2 id="businessName">
-      Nombre del negocio
-    </h2>
+<h2>Nombre del negocio</h2>
 
-    <p class="profile-role" id="businessRole">
-      Peluquería
-    </p>
+<p>Tu profesión o servicio</p>
 
-    <p class="profile-location" id="businessAddress">
-      📍 Tu dirección
-    </p>
+<div class="rating">
+<span>★</span> 4.9 · 128 reseñas
+</div>
 
-  </aside>
+<p>📍 Tu dirección</p>
 
+</aside>
 
-  <!-- RESERVA -->
 
-  <main class="main">
+<!-- MAIN -->
 
+<main class="card main">
 
-    <!-- PASOS -->
+<!-- PASOS -->
 
-    <div class="steps">
+<div class="steps">
 
-      <div class="step active" id="step1">
-        <div class="step-number">1</div>
-        Servicio
-      </div>
+<div class="step active" id="st1">
+<div class="circle">1</div>
+Servicio
+</div>
 
-      <div class="step" id="step2">
-        <div class="step-number">2</div>
-        Fecha
-      </div>
+<div class="step" id="st2">
+<div class="circle">2</div>
+Fecha
+</div>
 
-      <div class="step" id="step3">
-        <div class="step-number">3</div>
-        Datos
-      </div>
+<div class="step" id="st3">
+<div class="circle">3</div>
+Hora
+</div>
 
-      <div class="step" id="step4">
-        <div class="step-number">4</div>
-        Confirmación
-      </div>
+<div class="step" id="st4">
+<div class="circle">4</div>
+Información
+</div>
 
-    </div>
+</div>
 
 
-    <!-- SERVICIOS -->
+<!-- PASO 1 -->
 
-    <section id="screenServices">
+<section id="s1">
 
-      <h1>Selecciona un servicio</h1>
+<h1>Selecciona un servicio</h1>
 
-      <p class="subtitle">
-        Elige el servicio que quieres reservar.
-      </p>
+<p class="sub">
+Elige el servicio que quieres reservar
+</p>
 
-      <div class="services" id="servicesContainer"></div>
+<div class="services" id="services"></div>
 
-      <div class="actions">
+<div class="actions">
+<button id="next1" disabled>
+Siguiente →
+</button>
+</div>
 
-        <button
-          class="button"
-          id="continueService"
-          disabled
-        >
-          Continuar →
-        </button>
+</section>
 
-      </div>
 
-    </section>
+<!-- PASO 2 -->
 
+<section id="s2" class="hidden">
 
-    <!-- FECHA Y HORA -->
+<h1>Selecciona una fecha</h1>
 
-    <section
-      id="screenDate"
-      class="hidden"
-    >
+<p class="sub">
+Elige el día que mejor te venga
+</p>
 
-      <h1>Elige fecha y hora</h1>
+<div class="booking-layout">
 
-      <p
-        class="subtitle"
-        id="selectedServiceText"
-      ></p>
+<!-- CALENDARIO -->
 
-      <input
-        type="date"
-        id="date"
-        class="date-input"
-      >
+<div class="calendar-wrapper">
 
-      <div class="slots-title">
-        Horarios disponibles
-      </div>
+<div class="calendar-header">
 
-      <div
-        class="slots"
-        id="slots"
-      ></div>
+<button class="month-btn" id="prevMonth">
+‹
+</button>
 
-      <div class="actions">
+<div class="month-title" id="monthTitle"></div>
 
-        <button
-          class="button button-back"
-          onclick="showScreen('services')"
-        >
-          ← Atrás
-        </button>
+<button class="month-btn" id="nextMonth">
+›
+</button>
 
-        <button
-          class="button"
-          id="continueDate"
-          disabled
-        >
-          Continuar →
-        </button>
+</div>
 
-      </div>
 
-    </section>
+<div class="weekdays">
 
+<div>Lun</div>
+<div>Mar</div>
+<div>Mié</div>
+<div>Jue</div>
+<div>Vie</div>
+<div>Sáb</div>
+<div>Dom</div>
 
-    <!-- DATOS -->
+</div>
 
-    <section
-      id="screenData"
-      class="hidden"
-    >
 
-      <h1>Tus datos</h1>
+<div class="calendar" id="calendar"></div>
 
-      <p class="subtitle">
-        Introduce tus datos para confirmar la reserva.
-      </p>
 
+<div class="legend">
 
-      <div
-        class="summary"
-        id="summary"
-      ></div>
+<div class="legend-item">
+<div class="legend-line legend-green"></div>
+Muchas horas
+</div>
 
+<div class="legend-item">
+<div class="legend-line legend-yellow"></div>
+Varias horas
+</div>
 
-      <div class="form">
+<div class="legend-item">
+<div class="legend-line legend-red"></div>
+1–3 horas
+</div>
 
-        <input
-          class="input"
-          id="clientName"
-          placeholder="Nombre y apellidos"
-        >
+<div class="legend-item">
+<div class="legend-line legend-gray"></div>
+Sin disponibilidad
+</div>
 
-        <input
-          class="input"
-          id="clientPhone"
-          placeholder="Teléfono"
-        >
+</div>
 
-        <input
-          class="input"
-          id="clientEmail"
-          type="email"
-          placeholder="Email (opcional)"
-        >
+</div>
 
-      </div>
 
+<!-- HORAS -->
 
-      <div class="actions">
+<div class="time-panel">
 
-        <button
-          class="button button-back"
-          onclick="showScreen('date')"
-        >
-          ← Atrás
-        </button>
+<div class="selected-date" id="selectedDate">
+Selecciona un día
+</div>
 
-        <button
-          class="button"
-          id="confirmButton"
-        >
-          Confirmar reserva
-        </button>
+<div class="date-description" id="dateDescription">
+Aquí aparecerán las horas disponibles
+</div>
 
-      </div>
+<div id="hoursContainer">
 
-    </section>
+<div class="no-hours">
+Selecciona un día del calendario para ver sus horarios.
+</div>
 
+</div>
 
-    <!-- CONFIRMACIÓN -->
+</div>
 
-    <section
-      id="screenSuccess"
-      class="hidden success"
-    >
+</div>
 
-      <div class="success-icon">
-        ✓
-      </div>
 
-      <h1>
-        Reserva confirmada
-      </h1>
+<div class="actions">
 
-      <p id="successText"></p>
+<button class="back" onclick="show(1)">
+← Anterior
+</button>
 
-    </section>
+<button id="next2" disabled>
+Siguiente →
+</button>
 
-  </main>
+</div>
+
+</section>
+
+
+<!-- PASO 3 -->
+
+<section id="s3" class="hidden">
+
+<h1>Confirma tu hora</h1>
+
+<p class="sub">
+Revisa el horario que has seleccionado
+</p>
+
+<div class="summary" id="summary"></div>
+
+<div class="actions">
+
+<button class="back" onclick="show(2)">
+← Anterior
+</button>
+
+<button id="next3">
+Continuar →
+</button>
+
+</div>
+
+</section>
+
+
+<!-- PASO 4 -->
+
+<section id="s4" class="hidden">
+
+<h1>Tus datos</h1>
+
+<p class="sub">
+Completa tus datos para confirmar la reserva
+</p>
+
+<div class="summary" id="summary2"></div>
+
+<div class="form">
+
+<input id="name" placeholder="Nombre y apellidos">
+
+<input id="phone" placeholder="Teléfono">
+
+<input id="email" type="email" placeholder="Email (opcional)">
+
+</div>
+
+<div class="actions">
+
+<button class="back" onclick="show(3)">
+← Anterior
+</button>
+
+<button id="reserve">
+Confirmar reserva
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ÉXITO -->
+
+<section id="ok" class="hidden success">
+
+<div class="ok">✓</div>
+
+<h1>Reserva confirmada</h1>
+
+<p class="sub" id="oktext"></p>
+
+</section>
+
+</main>
 
 </div>
 
 
 <script>
 
-/* =====================================================
-   CONFIGURACIÓN DEL NEGOCIO
+/* =========================
+   DATOS
+========================= */
 
-   Cuando tengamos un cliente solamente cambiamos
-   esta sección.
-===================================================== */
+const services = [
 
-const CONFIG = {
+{
+name:"Servicio 1",
+duration:30,
+price:0
+},
 
-  negocio: "Nombre del negocio",
+{
+name:"Servicio 2",
+duration:45,
+price:0
+},
 
-  profesion: "Peluquería",
+{
+name:"Servicio 3",
+duration:60,
+price:0
+},
 
-  direccion: "Tu dirección",
+{
+name:"Servicio 4",
+duration:30,
+price:0
+}
 
-  logo: "LOGO",
+];
 
-  servicios: [
 
-    {
-      nombre: "Servicio 1",
-      duracion: 30,
-      precio: 15
-    },
+/* =========================
+   VARIABLES
+========================= */
 
-    {
-      nombre: "Servicio 2",
-      duracion: 45,
-      precio: 20
-    },
+let svc=null;
+let selectedDate=null;
+let selectedTime=null;
 
-    {
-      nombre: "Servicio 3",
-      duracion: 60,
-      precio: 30
-    },
+let currentMonth=new Date();
 
-    {
-      nombre: "Servicio 4",
-      duracion: 30,
-      precio: 15
-    }
+currentMonth.setDate(1);
 
-  ]
+
+/* =========================
+   ELEMENTOS
+========================= */
+
+const servicesEl=document.getElementById("services");
+
+const next1=document.getElementById("next1");
+
+const calendar=document.getElementById("calendar");
+
+const monthTitle=document.getElementById("monthTitle");
+
+const prevMonth=document.getElementById("prevMonth");
+
+const nextMonth=document.getElementById("nextMonth");
+
+const selectedDateEl=document.getElementById("selectedDate");
+
+const dateDescription=document.getElementById("dateDescription");
+
+const hoursContainer=document.getElementById("hoursContainer");
+
+const next2=document.getElementById("next2");
+
+const summary=document.getElementById("summary");
+
+const summary2=document.getElementById("summary2");
+
+const nameInput=document.getElementById("name");
+
+const phoneInput=document.getElementById("phone");
+
+const emailInput=document.getElementById("email");
+
+const reserve=document.getElementById("reserve");
+
+
+/* =========================
+   SERVICIOS
+========================= */
+
+services.forEach(x=>{
+
+let e=document.createElement("div");
+
+e.className="service";
+
+e.innerHTML=`
+
+<div>
+
+<div class="meta">
+◷ ${x.duration} minutos
+</div>
+
+<h3>${x.name}</h3>
+
+</div>
+
+<div>
+
+<div class="price">
+${x.price ? "€"+x.price : "Consultar"}
+</div>
+
+<div class="check">
+✓
+</div>
+
+</div>
+`;
+
+e.onclick=()=>{
+
+document
+.querySelectorAll(".service")
+.forEach(a=>a.classList.remove("selected"));
+
+e.classList.add("selected");
+
+svc=x;
+
+next1.disabled=false;
+
+};
+
+servicesEl.appendChild(e);
+
+});
+
+
+/* =========================
+   DISPONIBILIDAD
+=========================
+
+   Aquí simulamos las horas disponibles.
+
+   Más adelante podemos conectar esto
+   con Google Calendar / n8n / base de datos.
+========================= */
+
+const availability={};
+
+
+/* Generamos disponibilidad para varios meses */
+
+function generateAvailability(){
+
+for(let monthOffset=-1;monthOffset<=3;monthOffset++){
+
+let base=new Date();
+
+base.setDate(1);
+
+base.setMonth(base.getMonth()+monthOffset);
+
+let year=base.getFullYear();
+
+let month=base.getMonth();
+
+let days=new Date(year,month+1,0).getDate();
+
+for(let d=1;d<=days;d++){
+
+let key=formatDate(new Date(year,month,d));
+
+let pattern=(d*7+month*13)%10;
+
+let times=[];
+
+
+/* MUCHAS */
+
+if(pattern<=3){
+
+times=[
+"09:00",
+"09:30",
+"10:00",
+"10:30",
+"11:00",
+"11:30",
+"12:00",
+"12:30",
+"16:00",
+"16:30",
+"17:00",
+"17:30",
+"18:00",
+"18:30",
+"19:00"
+];
+
+}
+
+
+/* MEDIAS */
+
+else if(pattern<=6){
+
+times=[
+"09:00",
+"10:00",
+"11:30",
+"12:00",
+"16:30",
+"17:30",
+"18:30"
+];
+
+}
+
+
+/* POCAS */
+
+else if(pattern<=8){
+
+times=[
+"10:00",
+"17:30",
+"18:30"
+];
+
+}
+
+
+/* NINGUNA */
+
+else{
+
+times=[];
+
+}
+
+availability[key]=times;
+
+}
+
+}
+
+}
+
+
+/* =========================
+   FORMATO FECHA
+========================= */
+
+function formatDate(date){
+
+let y=date.getFullYear();
+
+let m=String(date.getMonth()+1).padStart(2,"0");
+
+let d=String(date.getDate()).padStart(2,"0");
+
+return `${y}-${m}-${d}`;
+
+}
+
+
+/* =========================
+   RENDER CALENDARIO
+========================= */
+
+function renderCalendar(){
+
+calendar.innerHTML="";
+
+let year=currentMonth.getFullYear();
+
+let month=currentMonth.getMonth();
+
+
+monthTitle.textContent=
+currentMonth.toLocaleDateString(
+"es-ES",
+{
+month:"long",
+year:"numeric"
+}
+);
+
+
+/* Primer día */
+
+let firstDay=new Date(year,month,1);
+
+let weekday=firstDay.getDay();
+
+/* Convertimos domingo=0 a lunes=0 */
+
+let offset=(weekday+6)%7;
+
+
+/* Huecos */
+
+for(let i=0;i<offset;i++){
+
+let empty=document.createElement("div");
+
+empty.className="day empty";
+
+calendar.appendChild(empty);
+
+}
+
+
+/* Días */
+
+let days=new Date(year,month+1,0).getDate();
+
+let today=formatDate(new Date());
+
+
+for(let d=1;d<=days;d++){
+
+let date=new Date(year,month,d);
+
+let key=formatDate(date);
+
+let times=availability[key] || [];
+
+let count=times.length;
+
+
+let day=document.createElement("div");
+
+day.className="day";
+
+
+/* Estado */
+
+if(count>=7){
+
+day.classList.add("high");
+
+}
+else if(count>=4){
+
+day.classList.add("medium");
+
+}
+else if(count>=1){
+
+day.classList.add("low");
+
+}
+else{
+
+day.classList.add("none");
+day.classList.add("disabled");
+
+}
+
+
+/* Hoy */
+
+if(key===today){
+
+day.classList.add("today");
+
+}
+
+
+/* Seleccionado */
+
+if(selectedDate===key){
+
+day.classList.add("selected");
+
+}
+
+
+/* Contenido */
+
+day.innerHTML=`
+
+<div class="day-number">
+${d}
+</div>
+
+<div class="availability-line"></div>
+
+`;
+
+
+/* Click */
+
+if(count>0){
+
+day.onclick=()=>{
+
+selectDate(key);
+
+};
+
+}
+
+
+calendar.appendChild(day);
+
+}
+
+}
+
+
+/* =========================
+   SELECCIONAR FECHA
+========================= */
+
+function selectDate(key){
+
+selectedDate=key;
+
+selectedTime=null;
+
+next2.disabled=true;
+
+renderCalendar();
+
+let date=new Date(key+"T12:00:00");
+
+selectedDateEl.textContent=
+date.toLocaleDateString(
+"es-ES",
+{
+weekday:"long",
+day:"numeric",
+month:"long",
+year:"numeric"
+}
+);
+
+let times=availability[key] || [];
+
+dateDescription.textContent=
+times.length+
+(times.length===1
+?" hora disponible"
+:" horas disponibles");
+
+
+renderHours(times);
+
+}
+
+
+/* =========================
+   MOSTRAR HORAS
+========================= */
+
+function renderHours(times){
+
+hoursContainer.innerHTML="";
+
+
+if(times.length===0){
+
+hoursContainer.innerHTML=`
+
+<div class="no-hours">
+No hay horarios disponibles para este día.
+</div>
+
+`;
+
+return;
+
+}
+
+
+/* Mañana */
+
+let morning=times.filter(t=>parseInt(t)<14);
+
+/* Tarde */
+
+let afternoon=times.filter(t=>parseInt(t)>=14 && parseInt(t)<20);
+
+/* Noche */
+
+let night=times.filter(t=>parseInt(t)>=20);
+
+
+createTimeGroup(
+"Mañana",
+morning
+);
+
+createTimeGroup(
+"Tarde",
+afternoon
+);
+
+createTimeGroup(
+"Noche",
+night
+);
+
+
+/* Información */
+
+let info=document.createElement("div");
+
+info.className="date-info";
+
+info.innerHTML=`
+
+<strong>${times.length}</strong>
+horarios disponibles para este día.
+
+`;
+
+hoursContainer.appendChild(info);
+
+}
+
+
+/* =========================
+   GRUPO DE HORAS
+========================= */
+
+function createTimeGroup(title,times){
+
+if(times.length===0)return;
+
+
+let group=document.createElement("div");
+
+group.className="time-group";
+
+group.innerHTML=`
+
+<div class="time-group-title">
+${title}
+</div>
+
+<div class="slots"></div>
+
+`;
+
+let slots=group.querySelector(".slots");
+
+
+times.forEach(t=>{
+
+let button=document.createElement("button");
+
+button.className="slot";
+
+button.textContent=t;
+
+
+button.onclick=()=>{
+
+document
+.querySelectorAll(".slot")
+.forEach(x=>x.classList.remove("selected"));
+
+button.classList.add("selected");
+
+selectedTime=t;
+
+next2.disabled=false;
 
 };
 
 
-/* =====================================================
-   ESTADO
-===================================================== */
-
-let selectedService = null;
-
-let selectedTime = null;
-
-
-/* =====================================================
-   ELEMENTOS
-===================================================== */
-
-const servicesContainer =
-  document.getElementById("servicesContainer");
-
-const continueService =
-  document.getElementById("continueService");
-
-const continueDate =
-  document.getElementById("continueDate");
-
-const slots =
-  document.getElementById("slots");
-
-const dateInput =
-  document.getElementById("date");
-
-
-/* =====================================================
-   INFORMACIÓN DEL NEGOCIO
-===================================================== */
-
-document.getElementById("headerName").textContent =
-  CONFIG.negocio;
-
-document.getElementById("businessName").textContent =
-  CONFIG.negocio;
-
-document.getElementById("businessRole").textContent =
-  CONFIG.profesion;
-
-document.getElementById("businessAddress").textContent =
-  "📍 " + CONFIG.direccion;
-
-document.getElementById("businessLogo").textContent =
-  CONFIG.logo;
-
-
-/* =====================================================
-   CREAR SERVICIOS
-===================================================== */
-
-CONFIG.servicios.forEach((service) => {
-
-  const element =
-    document.createElement("div");
-
-  element.className = "service";
-
-
-  element.innerHTML = `
-
-    <div>
-
-      <div class="service-name">
-        ${service.nombre}
-      </div>
-
-      <div class="service-meta">
-        ${service.duracion} minutos
-      </div>
-
-    </div>
-
-    <div>
-
-      <div class="service-price">
-        ${service.precio} €
-      </div>
-
-      <div class="service-check">
-        ✓
-      </div>
-
-    </div>
-
-  `;
-
-
-  element.addEventListener("click", () => {
-
-    document
-      .querySelectorAll(".service")
-      .forEach((item) => {
-
-        item.classList.remove("selected");
-
-      });
-
-
-    element.classList.add("selected");
-
-
-    selectedService = service;
-
-
-    continueService.disabled = false;
-
-  });
-
-
-  servicesContainer.appendChild(element);
+slots.appendChild(button);
 
 });
 
 
-/* =====================================================
-   CAMBIAR PASO
-===================================================== */
-
-function updateSteps(active){
-
-  for(let i = 1; i <= 4; i++){
-
-    const step =
-      document.getElementById("step" + i);
-
-    step.classList.toggle(
-      "active",
-      i <= active
-    );
-
-  }
+hoursContainer.appendChild(group);
 
 }
 
 
-/* =====================================================
-   MOSTRAR PANTALLA
-===================================================== */
+/* =========================
+   CAMBIAR MES
+========================= */
 
-function showScreen(screen){
+prevMonth.onclick=()=>{
 
-  document
-    .querySelectorAll("main section")
-    .forEach(section => {
+currentMonth.setMonth(
+currentMonth.getMonth()-1
+);
 
-      section.classList.add("hidden");
+renderCalendar();
 
-    });
-
-
-  if(screen === "services"){
-
-    document
-      .getElementById("screenServices")
-      .classList.remove("hidden");
-
-    updateSteps(1);
-
-  }
+};
 
 
-  if(screen === "date"){
+nextMonth.onclick=()=>{
 
-    document
-      .getElementById("screenDate")
-      .classList.remove("hidden");
+currentMonth.setMonth(
+currentMonth.getMonth()+1
+);
 
-    updateSteps(2);
+renderCalendar();
 
-  }
-
-
-  if(screen === "data"){
-
-    document
-      .getElementById("screenData")
-      .classList.remove("hidden");
-
-    updateSteps(3);
-
-  }
+};
 
 
-  if(screen === "success"){
+/* =========================
+   NAVEGACIÓN
+========================= */
 
-    document
-      .getElementById("screenSuccess")
-      .classList.remove("hidden");
+function show(n){
 
-    updateSteps(4);
-
-  }
-
-}
-
-
-/* =====================================================
-   SERVICIO → FECHA
-===================================================== */
-
-continueService.addEventListener("click", () => {
-
-  document.getElementById(
-    "selectedServiceText"
-  ).textContent =
-
-    selectedService.nombre +
-
-    " · " +
-
-    selectedService.duracion +
-
-    " minutos · " +
-
-    selectedService.precio +
-
-    " €";
-
-
-  showScreen("date");
-
-
-  loadDemoSlots();
-
+["s1","s2","s3","s4","ok"]
+.forEach(id=>{
+document
+.getElementById(id)
+.classList.add("hidden");
 });
 
 
-/* =====================================================
-   HORARIOS DEMO
+let id=
 
-   MÁS ADELANTE ESTO SE SUSTITUIRÁ POR:
-
-   POST → /Disponibilidad
-
-===================================================== */
-
-function loadDemoSlots(){
-
-  slots.innerHTML = "";
-
-  selectedTime = null;
-
-  continueDate.disabled = true;
+n===1?"s1":
+n===2?"s2":
+n===3?"s3":
+n===4?"s4":
+"ok";
 
 
-  const demoSlots = [
-
-    "09:00",
-    "09:30",
-    "10:00",
-    "10:30",
-    "11:00",
-    "11:30",
-    "12:00",
-
-    "16:00",
-    "16:30",
-    "17:00",
-    "17:30",
-    "18:00",
-    "18:30",
-    "19:00"
-
-  ];
+document
+.getElementById(id)
+.classList.remove("hidden");
 
 
-  demoSlots.forEach(time => {
+/* Pasos */
 
-    const button =
-      document.createElement("button");
+document
+.getElementById("st1")
+.classList.toggle("active",n===1);
 
-    button.className = "slot";
+document
+.getElementById("st2")
+.classList.toggle("active",n===2);
 
-    button.textContent = time;
+document
+.getElementById("st3")
+.classList.toggle("active",n===3);
 
-
-    button.addEventListener("click", () => {
-
-      document
-        .querySelectorAll(".slot")
-        .forEach(item => {
-
-          item.classList.remove("selected");
-
-        });
-
-
-      button.classList.add("selected");
-
-
-      selectedTime = time;
-
-
-      continueDate.disabled = false;
-
-    });
-
-
-    slots.appendChild(button);
-
-  });
+document
+.getElementById("st4")
+.classList.toggle("active",n===4);
 
 }
 
 
-/* =====================================================
-   FECHA
-===================================================== */
+/* =========================
+   SIGUIENTE 1
+========================= */
 
-dateInput.addEventListener(
-  "change",
-  () => {
+next1.onclick=()=>{
 
-    selectedTime = null;
+show(2);
 
-    continueDate.disabled = true;
+renderCalendar();
 
-    loadDemoSlots();
+};
 
-  }
+
+/* =========================
+   SIGUIENTE 2
+========================= */
+
+next2.onclick=()=>{
+
+if(!selectedDate || !selectedTime)return;
+
+
+let date=new Date(
+selectedDate+"T12:00:00"
 );
 
 
-/* =====================================================
-   FECHA → DATOS
-===================================================== */
-
-continueDate.addEventListener("click", () => {
-
-  document.getElementById(
-    "summary"
-  ).innerHTML = `
-
-    <div class="summary-title">
-      ${selectedService.nombre}
-    </div>
-
-    📅 ${dateInput.value}
-
-    <br>
-
-    🕐 ${selectedTime}
-
-    <br>
-
-    ⏱️ ${selectedService.duracion} minutos
-
-    <br>
-
-    💳 ${selectedService.precio} €
-
-  `;
+let formatted=date.toLocaleDateString(
+"es-ES",
+{
+weekday:"long",
+day:"numeric",
+month:"long",
+year:"numeric"
+}
+);
 
 
-  showScreen("data");
+summary.innerHTML=`
 
-});
+<b>${svc.name}</b>
+
+<br><br>
+
+📅 ${formatted}
+
+<br>
+
+🕐 ${selectedTime}
+
+<br>
+
+⏱️ ${svc.duration} minutos
+
+<br><br>
+
+<b>Precio:</b>
+${svc.price ? "€"+svc.price : "Consultar"}
+
+`;
 
 
-/* =====================================================
-   CONFIRMAR
+show(3);
 
-   MÁS ADELANTE:
+};
 
-   POST → /Reservar
 
-===================================================== */
+/* =========================
+   SIGUIENTE 3
+========================= */
 
 document
-  .getElementById("confirmButton")
-  .addEventListener("click", () => {
+.getElementById("next3")
+.onclick=()=>{
+
+summary2.innerHTML=
+summary.innerHTML;
+
+show(4);
+
+};
 
 
-    const name =
-      document
-        .getElementById("clientName")
-        .value
-        .trim();
+/* =========================
+   CONFIRMAR
+========================= */
+
+reserve.onclick=()=>{
+
+if(
+!nameInput.value.trim() ||
+!phoneInput.value.trim()
+){
+
+alert(
+"Rellena nombre y teléfono."
+);
+
+return;
+
+}
 
 
-    const phone =
-      document
-        .getElementById("clientPhone")
-        .value
-        .trim();
+document
+.getElementById("s4")
+.classList.add("hidden");
+
+document
+.getElementById("ok")
+.classList.remove("hidden");
 
 
-    if(!name || !phone){
-
-      alert(
-        "Introduce tu nombre y teléfono."
-      );
-
-      return;
-
-    }
+document
+.getElementById("st4")
+.classList.add("active");
 
 
-    document.getElementById(
-      "successText"
-    ).textContent =
+let date=new Date(
+selectedDate+"T12:00:00"
+);
 
-      selectedService.nombre +
+let formatted=date.toLocaleDateString(
+"es-ES",
+{
+weekday:"long",
+day:"numeric",
+month:"long",
+year:"numeric"
+}
+);
 
-      " · " +
 
-      dateInput.value +
+document
+.getElementById("oktext")
+.textContent=
+`${svc.name} · ${formatted} a las ${selectedTime}.`;
 
-      " a las " +
-
-      selectedTime;
+};
 
 
-    showScreen("success");
+/* =========================
+   INICIAR
+========================= */
 
-  });
+generateAvailability();
 
+renderCalendar();
 
 </script>
 
