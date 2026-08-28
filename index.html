@@ -2864,86 +2864,181 @@ document
    CONFIRMAR RESERVA
 ================================================== */
 
-reserve.onclick =
-() => {
+reserve.onclick = async () => {
 
   const clientName =
-  nameInput.value.trim();
+    nameInput.value.trim();
 
   const clientPhone =
-  phoneInput.value.trim();
+    phoneInput.value.trim();
+
+  const clientEmail =
+    emailInput.value.trim();
 
 
-  if(
-    !clientName ||
-    !clientPhone
-  ){
+  // Comprobar datos obligatorios
+  if (!clientName || !clientPhone) {
 
     alert(
       "Rellena nombre y teléfono."
     );
 
     return;
-
   }
 
 
-  /*
-    De momento mostramos
-    confirmación.
+  // Comprobar que existe una reserva
+  if (
+    !svc ||
+    !selectedDate ||
+    !selectedTime
+  ) {
 
-    Después conectaremos
-    este botón con el segundo
-    webhook de n8n para crear
-    el evento en Google Calendar
-    y enviar el mensaje.
-  */
-
-
-  document
-    .getElementById("s3")
-    .classList.add(
-      "hidden"
+    alert(
+      "Selecciona primero una fecha y una hora."
     );
 
-
-  document
-    .getElementById("ok")
-    .classList.remove(
-      "hidden"
-    );
+    return;
+  }
 
 
-  document
-    .getElementById("st3")
-    .classList.add(
-      "active"
-    );
+  // Desactivar botón mientras se procesa
+  reserve.disabled = true;
+
+  reserve.textContent =
+    "Confirmando...";
 
 
-  const date =
-  new Date(
-    selectedDate+"T12:00:00"
-  );
+  try {
+
+    const response =
+      await fetch(
+        "https://primer-practica-n8n.om5cjt.easypanel.host/webhook/Reservar",
+        {
+
+          method: "POST",
+
+          headers: {
+            "Content-Type":
+              "application/json"
+          },
+
+          body: JSON.stringify({
+
+            fecha:
+              selectedDate,
+
+            hora:
+              selectedTime,
+
+            duracion:
+              svc.duration,
+
+            servicio:
+              svc.name,
+
+            nombre:
+              clientName,
+
+            telefono:
+              clientPhone,
+
+            email:
+              clientEmail
+
+          })
+
+        }
+      );
 
 
-  const formatted =
-  date.toLocaleDateString(
-    "es-ES",
-    {
-      weekday:"long",
-      day:"numeric",
-      month:"long",
-      year:"numeric"
+    if (!response.ok) {
+
+      throw new Error(
+        "Error HTTP " +
+        response.status
+      );
+
     }
-  );
 
 
-  document
-    .getElementById("oktext")
-    .textContent =
+    const result =
+      await response.json();
 
-    `${svc.name} · ${formatted} a las ${selectedTime}.`;
+
+    console.log(
+      "Respuesta de n8n:",
+      result
+    );
+
+
+    /*
+      Si llegamos aquí,
+      n8n ha respondido correctamente.
+    */
+
+    document
+      .getElementById("s3")
+      .classList.add("hidden");
+
+
+    document
+      .getElementById("ok")
+      .classList.remove("hidden");
+
+
+    document
+      .getElementById("st3")
+      .classList.add("active");
+
+
+    const date =
+      new Date(
+        selectedDate +
+        "T12:00:00"
+      );
+
+
+    const formatted =
+      date.toLocaleDateString(
+        "es-ES",
+        {
+          weekday: "long",
+          day: "numeric",
+          month: "long",
+          year: "numeric"
+        }
+      );
+
+
+    document
+      .getElementById("oktext")
+      .textContent =
+        `${svc.name} · ${formatted} a las ${selectedTime}.`;
+
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "Error al reservar:",
+      error
+    );
+
+
+    alert(
+      "No se ha podido confirmar la reserva. Inténtalo de nuevo."
+    );
+
+
+    reserve.disabled =
+      false;
+
+    reserve.textContent =
+      "Confirmar reserva";
+
+  }
 
 };
 
