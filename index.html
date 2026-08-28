@@ -1457,6 +1457,51 @@ function isCurrentMonth(){
 
 
 /* ==================================================
+   FILTRAR HORAS PASADAS DE HOY
+================================================== */
+
+function filterPastTimes(fecha, hours){
+
+  if(!Array.isArray(hours)){
+    return [];
+  }
+
+  const now = new Date();
+
+  const today = formatDate(now);
+
+  // Los días futuros no se modifican
+  if(fecha !== today){
+    return hours;
+  }
+
+  const currentMinutes =
+    now.getHours() * 60 +
+    now.getMinutes();
+
+  return hours.filter(time => {
+
+    const parts =
+      String(time).split(":");
+
+    const hour =
+      parseInt(parts[0],10);
+
+    const minute =
+      parseInt(parts[1] || "0",10);
+
+    const timeMinutes =
+      hour * 60 + minute;
+
+    // Solo horas cuyo inicio todavía no ha pasado
+    return timeMinutes > currentMinutes;
+
+  });
+
+}
+
+
+/* ==================================================
    CONSULTAR N8N
 ================================================== */
 
@@ -1536,7 +1581,10 @@ async function getAvailability(fecha){
       )
     ){
 
-      return data.horasDisponibles;
+      return filterPastTimes(
+        fecha,
+        data.horasDisponibles
+      );
 
     }
 
@@ -1554,7 +1602,10 @@ async function getAvailability(fecha){
       )
     ){
 
-      return data.body.horasDisponibles;
+      return filterPastTimes(
+        fecha,
+        data.body.horasDisponibles
+      );
 
     }
 
@@ -1575,9 +1626,10 @@ async function getAvailability(fecha){
         )
       ){
 
-        return data[0]
-          .json
-          .horasDisponibles;
+        return filterPastTimes(
+          fecha,
+          data[0].json.horasDisponibles
+        );
 
       }
 
@@ -2005,13 +2057,18 @@ function renderCalendar(){
 
 
     const hours =
-    availability[fecha];
+    filterPastTimes(
+      fecha,
+      availability[fecha] || []
+    );
 
+    // Actualizamos también la caché para que
+    // el contador del día sea correcto.
+    availability[fecha] =
+      hours;
 
     const count =
-    Array.isArray(hours)
-    ? hours.length
-    : 0;
+    hours.length;
 
 
     const day =
@@ -2207,8 +2264,13 @@ else{
 function selectDate(fecha){
 
   const hours =
-  availability[fecha]
-  || [];
+  filterPastTimes(
+    fecha,
+    availability[fecha] || []
+  );
+
+  availability[fecha] =
+    hours;
 
 
   /*
@@ -2271,6 +2333,22 @@ function selectDate(fecha){
 ================================================== */
 
 function renderHours(hours){
+
+  // Volvemos a filtrar aquí por si mientras
+  // el usuario tenía abierta la página alguna
+  // hora se ha quedado atrás.
+  if(selectedDate){
+
+    hours =
+      filterPastTimes(
+        selectedDate,
+        hours || []
+      );
+
+    availability[selectedDate] =
+      hours;
+
+  }
 
   hoursContainer.innerHTML =
   "";
