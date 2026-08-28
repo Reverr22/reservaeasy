@@ -3,16 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+
 <title>Reserva tu cita</title>
 
 <style>
-*{box-sizing:border-box}
+
+*{
+  box-sizing:border-box;
+}
 
 body{
   margin:0;
   font-family:Arial,sans-serif;
   background:#f5f7fa;
-  color:#15171a
+  color:#15171a;
 }
 
 header{
@@ -24,28 +28,28 @@ header{
   padding:0 7%;
   font-size:23px;
   font-weight:800;
-  color:#222
 }
 
 .container{
   max-width:1250px;
-  margin:35px auto;
+  margin:40px auto;
   padding:0 20px;
+
   display:grid;
   grid-template-columns:285px 1fr;
-  gap:30px
+  gap:30px;
 }
 
 .card{
   background:#fff;
   border-radius:14px;
-  box-shadow:0 7px 24px #18233a12
+  box-shadow:0 7px 24px #18233a12;
 }
 
 .profile{
   padding:24px;
   text-align:center;
-  height:max-content
+  height:max-content;
 }
 
 .avatar{
@@ -53,829 +57,1126 @@ header{
   height:105px;
   border-radius:50%;
   margin:0 auto 18px;
+
   background:#f0f1f3;
+
   display:flex;
   align-items:center;
   justify-content:center;
+
   color:#777;
-  font-size:18px;
-  font-weight:800
+  font-size:27px;
+  font-weight:800;
 }
 
 .profile h2{
   margin:0 0 8px;
-  font-size:21px
+  font-size:21px;
 }
 
 .profile p{
   color:#6b7280;
   font-size:14px;
-  margin:8px 0
-}
-
-.rating{
-  margin:18px 0;
-  font-size:14px
-}
-
-.rating span{
-  color:#f59e0b;
-  font-size:20px
+  margin:8px 0;
 }
 
 .main{
-  padding:28px 20px 20px
+  padding:28px 20px 20px;
 }
+
+
+/* =========================
+   PASOS
+========================= */
 
 .steps{
   display:grid;
-  grid-template-columns:1fr 1fr 1fr 1fr;
-  margin-bottom:30px;
-  color:#9ca3af
+  grid-template-columns:repeat(3,1fr);
+  margin-bottom:35px;
+  color:#9ca3af;
 }
 
 .step{
   text-align:center;
   font-size:13px;
-  position:relative
-}
-
-.step:not(:last-child):after{
-  content:"";
-  position:absolute;
-  top:13px;
-  left:65%;
-  width:70%;
-  height:3px;
-  background:#e5e7eb;
-  z-index:0
 }
 
 .circle{
   margin:auto auto 7px;
-  width:27px;
-  height:27px;
+
+  width:28px;
+  height:28px;
+
   border-radius:50%;
+
   background:#e5e7eb;
+
   display:flex;
   align-items:center;
   justify-content:center;
+
   font-weight:700;
-  position:relative;
-  z-index:2
 }
 
-.active{
-  color:#6d5ce7
+.step.active{
+  color:#6658e8;
 }
 
-.active .circle{
-  background:#6d5ce7;
-  color:#fff
+.step.active .circle{
+  background:#6658e8;
+  color:#fff;
 }
 
-.completed .circle{
-  background:#222;
-  color:#fff
-}
+
+/* =========================
+   TITULOS
+========================= */
 
 h1{
   font-size:25px;
-  margin:0 0 7px
+  margin:0 0 7px;
 }
 
 .sub{
   color:#6b7280;
-  margin:0 0 24px
+  margin:0 0 25px;
 }
 
-.hidden{
-  display:none!important
-}
+
+/* =========================
+   SERVICIOS
+========================= */
 
 .services{
   display:grid;
-  gap:11px
+  gap:11px;
 }
 
 .service{
   border:1px solid #dfe3e8;
+
   border-radius:10px;
+
   padding:18px 16px;
+
   cursor:pointer;
+
   display:grid;
   grid-template-columns:1fr auto;
-  transition:.15s
+
+  transition:.15s;
 }
 
 .service:hover{
-  border-color:#aaa
+  border-color:#aaa;
 }
 
 .service.selected{
-  border-color:#6d5ce7;
-  box-shadow:0 0 0 2px #6d5ce722
+  border-color:#6658e8;
+
+  box-shadow:
+    0 0 0 2px #6658e822;
 }
 
 .service h3{
   margin:5px 0;
-  font-size:18px
+  font-size:18px;
 }
 
 .meta{
   color:#667085;
-  font-size:14px
+  font-size:14px;
 }
 
 .price{
   font-weight:800;
-  font-size:18px
+  font-size:18px;
 }
 
 .check{
   margin-top:10px;
+
   width:22px;
   height:22px;
+
   border-radius:50%;
+
   background:#d9dee7;
+
   color:#fff;
+
   text-align:center;
-  line-height:22px
+
+  line-height:22px;
 }
 
 .selected .check{
-  background:#6d5ce7
+  background:#6658e8;
 }
 
-/* CALENDARIO */
 
-.booking-layout{
-  display:grid;
-  grid-template-columns:1fr 390px;
-  gap:35px
-}
-
-.calendar-wrapper{
-  min-width:0
-}
-
-.calendar-header{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin-bottom:20px
-}
-
-.month-title{
-  font-size:20px;
-  font-weight:800;
-  text-transform:capitalize
-}
-
-.month-btn{
-  width:38px;
-  height:38px;
-  border-radius:50%;
-  border:1px solid #e5e7eb;
-  background:#fff;
-  cursor:pointer;
-  font-size:20px;
-  color:#333;
-  padding:0
-}
-
-.month-btn:hover{
-  background:#f5f5f5
-}
-
-.weekdays{
-  display:grid;
-  grid-template-columns:repeat(7,1fr);
-  margin-bottom:10px;
-  color:#6b7280;
-  font-size:13px;
-  text-align:center
-}
-
-.calendar{
-  display:grid;
-  grid-template-columns:repeat(7,1fr);
-  gap:7px
-}
-
-.day{
-  min-height:67px;
-  border-radius:10px;
-  border:1px solid transparent;
-  background:#fff;
-  cursor:pointer;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:flex-start;
-  padding-top:8px;
-  transition:.15s
-}
-
-.day:hover{
-  background:#f8f8fb
-}
-
-.day.empty{
-  cursor:default;
-  background:transparent
-}
-
-.day.disabled{
-  cursor:not-allowed;
-  opacity:.42
-}
-
-.day.loading-day{
-  cursor:wait;
-}
-
-.day-number{
-  font-size:15px;
-  font-weight:600
-}
-
-.day.today .day-number{
-  font-weight:900
-}
-
-.day.selected{
-  background:#f0edff;
-  border-color:#6d5ce7
-}
-
-.day.selected .day-number{
-  color:#5d4bd8
-}
-
-.availability-line{
-  width:28px;
-  height:4px;
-  border-radius:10px;
-  margin-top:8px
-}
-
-.high .availability-line{
-  background:#16a34a;
-  width:34px
-}
-
-.medium .availability-line{
-  background:#f59e0b;
-  width:24px
-}
-
-.low .availability-line{
-  background:#ef4444;
-  width:7px;
-  height:7px;
-  border-radius:50%
-}
-
-.none .availability-line{
-  background:#d1d5db;
-  width:20px
-}
-
-.loading-line{
-  background:#d1d5db;
-  width:15px;
-  animation:pulse 1s infinite
-}
-
-@keyframes pulse{
-  0%,100%{opacity:.3}
-  50%{opacity:1}
-}
-
-.legend{
-  margin-top:22px;
-  border:1px solid #e5e7eb;
-  border-radius:10px;
-  padding:14px;
-  display:flex;
-  justify-content:center;
-  gap:20px;
-  flex-wrap:wrap;
-  font-size:12px;
-  color:#555
-}
-
-.legend-item{
-  display:flex;
-  align-items:center;
-  gap:7px
-}
-
-.legend-line{
-  width:25px;
-  height:4px;
-  border-radius:5px
-}
-
-.legend-green{
-  background:#16a34a
-}
-
-.legend-yellow{
-  background:#f59e0b
-}
-
-.legend-red{
-  background:#ef4444;
-  width:7px;
-  height:7px;
-  border-radius:50%
-}
-
-.legend-gray{
-  background:#d1d5db
-}
-
-/* HORAS */
-
-.time-panel{
-  border-left:1px solid #e5e7eb;
-  padding-left:30px
-}
-
-.selected-date{
-  font-size:18px;
-  font-weight:800;
-  margin-bottom:6px;
-  text-transform:capitalize
-}
-
-.date-description{
-  color:#6b7280;
-  font-size:14px;
-  margin-bottom:22px
-}
-
-.time-group{
-  margin-bottom:22px
-}
-
-.time-group-title{
-  font-size:14px;
-  font-weight:700;
-  margin-bottom:10px;
-  color:#555
-}
-
-.slots{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:9px
-}
-
-.slot{
-  background:#fff;
-  border:1px solid #dfe3e8;
-  color:#222;
-  padding:12px 5px;
-  border-radius:8px;
-  cursor:pointer;
-  font-size:14px;
-  transition:.15s
-}
-
-.slot:hover{
-  border-color:#6d5ce7;
-  color:#6d5ce7
-}
-
-.slot.selected{
-  background:#6d5ce7;
-  color:#fff;
-  border-color:#6d5ce7
-}
-
-.no-hours{
-  color:#9ca3af;
-  font-size:14px;
-  padding:10px 0
-}
-
-.date-info{
-  background:#f7f5ff;
-  border:1px solid #e2ddff;
-  border-radius:10px;
-  padding:15px;
-  margin-top:20px;
-  font-size:13px;
-  color:#555
-}
-
-.date-info strong{
-  color:#4f46b5
-}
-
-.loading-hours{
-  color:#6b7280;
-  font-size:14px;
-  padding:15px 0
-}
-
-.error-hours{
-  color:#dc2626;
-  font-size:14px;
-  padding:15px 0
-}
-
-/* ACCIONES */
+/* =========================
+   BOTONES
+========================= */
 
 .actions{
   border-top:1px solid #e5e7eb;
+
   margin-top:28px;
+
   padding-top:20px;
+
   display:flex;
-  justify-content:flex-end
+
+  justify-content:flex-end;
 }
 
 button{
   border:0;
+
   border-radius:9px;
-  background:#6d5ce7;
+
+  background:#6658e8;
+
   color:#fff;
+
   padding:12px 22px;
+
   font-weight:700;
-  cursor:pointer
+
+  cursor:pointer;
 }
 
 button:disabled{
   background:#c9cbd3;
-  cursor:not-allowed
+  cursor:not-allowed;
 }
 
 .back{
   background:#fff;
-  color:#555;
+  color:#777;
   border:1px solid #e5e7eb;
-  margin-right:auto
+  margin-right:auto;
 }
 
-/* FORM */
+
+/* =========================
+   CALENDARIO
+========================= */
+
+.calendar-area{
+
+  display:grid;
+
+  grid-template-columns:minmax(400px,1fr) minmax(330px,1fr);
+
+  gap:30px;
+
+}
+
+
+/* CABECERA */
+
+.calendar-header{
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  margin-bottom:20px;
+
+}
+
+.calendar-header h2{
+
+  margin:0;
+
+  text-transform:capitalize;
+
+  font-size:22px;
+
+}
+
+.month-button{
+
+  width:42px;
+  height:42px;
+
+  padding:0;
+
+  border-radius:50%;
+
+  background:#fff;
+
+  color:#222;
+
+  border:1px solid #e1e4e8;
+
+  font-size:24px;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+}
+
+.month-button:hover{
+
+  background:#f5f5f5;
+
+}
+
+
+/* DIAS SEMANA */
+
+.weekdays{
+
+  display:grid;
+
+  grid-template-columns:repeat(7,1fr);
+
+  margin-bottom:8px;
+
+}
+
+.weekdays div{
+
+  text-align:center;
+
+  color:#777;
+
+  font-size:13px;
+
+  font-weight:600;
+
+}
+
+
+/* GRID */
+
+.calendar{
+
+  display:grid;
+
+  grid-template-columns:repeat(7,1fr);
+
+  gap:7px;
+
+}
+
+
+/* DIA */
+
+.day{
+
+  min-height:70px;
+
+  border-radius:10px;
+
+  display:flex;
+
+  flex-direction:column;
+
+  align-items:center;
+
+  justify-content:flex-start;
+
+  padding-top:10px;
+
+  cursor:pointer;
+
+  transition:.15s;
+
+  position:relative;
+
+}
+
+.day:hover{
+
+  background:#f4f4f7;
+
+}
+
+.day.empty{
+
+  cursor:default;
+
+}
+
+.day.disabled{
+
+  cursor:not-allowed;
+
+  opacity:.55;
+
+}
+
+.day.disabled:hover{
+
+  background:transparent;
+
+}
+
+.day-number{
+
+  font-size:15px;
+
+  font-weight:600;
+
+}
+
+
+/* LINEA DISPONIBILIDAD */
+
+.availability-line{
+
+  height:4px;
+
+  border-radius:10px;
+
+  margin-top:9px;
+
+  transition:.2s;
+
+}
+
+
+/* VERDE */
+
+.day.high .availability-line{
+
+  width:70%;
+
+  background:#18a957;
+
+}
+
+
+/* AMARILLO */
+
+.day.medium .availability-line{
+
+  width:45%;
+
+  background:#f4a51c;
+
+}
+
+
+/* 1-3 HORAS */
+
+.day.low .availability-line{
+
+  width:7px;
+
+  height:7px;
+
+  border-radius:50%;
+
+  background:#ef4444;
+
+}
+
+
+/* SIN DISPONIBILIDAD */
+
+.day.none .availability-line{
+
+  width:55%;
+
+  background:#e5e7eb;
+
+}
+
+
+/* SELECCIONADO */
+
+.day.selected{
+
+  background:#f0efff;
+
+}
+
+.day.selected .day-number{
+
+  color:#6658e8;
+
+}
+
+
+/* HOY */
+
+.day.today .day-number{
+
+  color:#6658e8;
+
+  font-weight:800;
+
+}
+
+
+/* =========================
+   LEYENDA
+========================= */
+
+.legend{
+
+  margin-top:22px;
+
+  border:1px solid #e5e7eb;
+
+  border-radius:10px;
+
+  padding:13px;
+
+  display:flex;
+
+  gap:18px;
+
+  justify-content:center;
+
+  flex-wrap:wrap;
+
+  color:#667085;
+
+  font-size:13px;
+
+}
+
+.legend-item{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:6px;
+
+}
+
+.legend-green{
+
+  width:28px;
+  height:4px;
+  border-radius:5px;
+  background:#18a957;
+}
+
+.legend-yellow{
+
+  width:18px;
+  height:4px;
+  border-radius:5px;
+  background:#f4a51c;
+}
+
+.legend-red{
+
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:#ef4444;
+}
+
+.legend-gray{
+
+  width:22px;
+  height:4px;
+  border-radius:5px;
+  background:#e5e7eb;
+}
+
+
+/* =========================
+   HORAS
+========================= */
+
+.hours-panel{
+
+  border-left:1px solid #e5e7eb;
+
+  padding-left:28px;
+
+}
+
+.hours-panel h2{
+
+  margin:0 0 6px;
+
+  font-size:21px;
+
+}
+
+.hours-panel .date-description{
+
+  color:#667085;
+
+  margin-bottom:22px;
+
+  font-size:14px;
+
+}
+
+.time-group{
+
+  margin-bottom:22px;
+
+}
+
+.time-group-title{
+
+  font-size:15px;
+
+  font-weight:700;
+
+  margin-bottom:10px;
+
+}
+
+.slots{
+
+  display:grid;
+
+  grid-template-columns:repeat(3,1fr);
+
+  gap:9px;
+
+}
+
+.slot{
+
+  background:#fff;
+
+  color:#222;
+
+  border:1px solid #dfe3e8;
+
+  padding:12px 8px;
+
+  border-radius:8px;
+
+  font-size:14px;
+
+}
+
+.slot:hover{
+
+  border-color:#6658e8;
+
+}
+
+.slot.selected{
+
+  background:#6658e8;
+
+  color:#fff;
+
+  border-color:#6658e8;
+
+}
+
+.no-hours{
+
+  color:#9ca3af;
+
+  padding:30px 0;
+
+  line-height:1.5;
+
+}
+
+.loading{
+
+  color:#9ca3af;
+
+  padding:30px 0;
+
+}
+
+
+/* =========================
+   INFORMACIÓN
+========================= */
+
+.summary{
+
+  background:#f7f7f8;
+
+  border-radius:10px;
+
+  padding:18px;
+
+  margin:20px 0;
+
+  color:#4b5563;
+
+  line-height:1.7;
+
+}
 
 .form{
+
   display:grid;
+
   gap:12px;
-  max-width:600px
+
+  max-width:600px;
+
 }
 
 .form input{
+
   padding:13px;
+
   border:1px solid #dfe3e8;
+
   border-radius:8px;
-  font-size:15px
+
+  font-size:15px;
+
 }
 
-.summary{
-  background:#f7f7f8;
-  border-radius:10px;
-  padding:16px;
-  margin:20px 0;
-  color:#4b5563
+.form input:focus{
+
+  outline:none;
+
+  border-color:#6658e8;
+
+}
+
+
+/* =========================
+   ÉXITO
+========================= */
+
+.hidden{
+
+  display:none !important;
+
 }
 
 .success{
+
   text-align:center;
-  padding:55px 20px
+
+  padding:70px 20px;
+
 }
 
 .success .ok{
-  font-size:55px;
-  color:#16a34a
-}
 
-@media(max-width:950px){
+  font-size:65px;
 
-  .booking-layout{
-    grid-template-columns:1fr
-  }
-
-  .time-panel{
-    border-left:0;
-    border-top:1px solid #e5e7eb;
-    padding-left:0;
-    padding-top:25px
-  }
+  color:#18a957;
 
 }
 
-@media(max-width:800px){
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:900px){
 
   .container{
-    grid-template-columns:1fr
+
+    grid-template-columns:1fr;
+
   }
 
   .profile{
-    display:none
+
+    display:none;
+
+  }
+
+  .calendar-area{
+
+    grid-template-columns:1fr;
+
+  }
+
+  .hours-panel{
+
+    border-left:0;
+
+    border-top:1px solid #e5e7eb;
+
+    padding-left:0;
+
+    padding-top:25px;
+
   }
 
 }
 
-@media(max-width:550px){
 
-  header{
-    padding:0 20px;
-    font-size:20px
+@media(max-width:600px){
+
+  .container{
+
+    margin:15px auto;
+
+    padding:0 10px;
+
   }
 
   .main{
-    padding:20px 14px
-  }
 
-  .steps{
-    grid-template-columns:repeat(4,1fr)
-  }
+    padding:20px 14px;
 
-  .step{
-    font-size:11px
-  }
-
-  .step:not(:last-child):after{
-    width:60%
-  }
-
-  .day{
-    min-height:58px
-  }
-
-  .day-number{
-    font-size:14px
   }
 
   .calendar{
-    gap:4px
+
+    gap:3px;
+
+  }
+
+  .day{
+
+    min-height:58px;
+
   }
 
   .slots{
-    grid-template-columns:repeat(3,1fr)
+
+    grid-template-columns:repeat(2,1fr);
+
+  }
+
+  .calendar-area{
+
+    gap:20px;
+
   }
 
 }
+
 </style>
 </head>
 
+
 <body>
 
-<header>◫ Reserva tu cita</header>
+
+<header>
+  ◫ Reserva tu cita
+</header>
+
 
 <div class="container">
 
+
+<!-- =========================
+     PERFIL
+========================= -->
+
 <aside class="card profile">
 
-<div class="avatar">LOGO</div>
+  <div class="avatar">
+    LOGO
+  </div>
 
-<h2>Nombre del negocio</h2>
+  <h2>
+    Nombre del negocio
+  </h2>
 
-<p>Tu profesión o servicio</p>
+  <p>
+    Tu profesión o servicio
+  </p>
 
-<div class="rating">
-<span>★</span> 4.9 · 128 reseñas
-</div>
-
-<p>📍 Tu dirección</p>
+  <p>
+    📍 Tu dirección
+  </p>
 
 </aside>
 
 
+<!-- =========================
+     PRINCIPAL
+========================= -->
+
 <main class="card main">
+
+
+<!-- PASOS -->
 
 <div class="steps">
 
-<div class="step active" id="st1">
-<div class="circle">1</div>
-Servicio
-</div>
+  <div class="step active" id="st1">
+    <div class="circle">1</div>
+    Servicio
+  </div>
 
-<div class="step" id="st2">
-<div class="circle">2</div>
-Fecha
-</div>
+  <div class="step" id="st2">
+    <div class="circle">2</div>
+    Fecha
+  </div>
 
-<div class="step" id="st3">
-<div class="circle">3</div>
-Hora
-</div>
-
-<div class="step" id="st4">
-<div class="circle">4</div>
-Información
-</div>
+  <div class="step" id="st3">
+    <div class="circle">3</div>
+    Información
+  </div>
 
 </div>
 
 
-<!-- PASO 1 -->
+<!-- =========================
+     PASO 1
+========================= -->
 
 <section id="s1">
 
-<h1>Selecciona un servicio</h1>
+  <h1>
+    Selecciona un servicio
+  </h1>
 
-<p class="sub">
-Elige el servicio que quieres reservar
-</p>
+  <p class="sub">
+    Elige el servicio que quieres reservar
+  </p>
 
-<div class="services" id="services"></div>
+  <div
+    class="services"
+    id="services">
+  </div>
 
-<div class="actions">
-<button id="next1" disabled>
-Siguiente →
-</button>
-</div>
+  <div class="actions">
+
+    <button
+      id="next1"
+      disabled>
+      Siguiente →
+    </button>
+
+  </div>
 
 </section>
 
 
-<!-- PASO 2 -->
+<!-- =========================
+     PASO 2
+========================= -->
 
 <section id="s2" class="hidden">
 
-<h1>Selecciona una fecha</h1>
+  <h1>
+    Selecciona una fecha
+  </h1>
 
-<p class="sub">
-Elige el día que mejor te venga
-</p>
-
-<div class="booking-layout">
-
-<div class="calendar-wrapper">
-
-<div class="calendar-header">
-
-<button class="month-btn" id="prevMonth">
-‹
-</button>
-
-<div class="month-title" id="monthTitle"></div>
-
-<button class="month-btn" id="nextMonth">
-›
-</button>
-
-</div>
-
-<div class="weekdays">
-
-<div>Lun</div>
-<div>Mar</div>
-<div>Mié</div>
-<div>Jue</div>
-<div>Vie</div>
-<div>Sáb</div>
-<div>Dom</div>
-
-</div>
-
-<div class="calendar" id="calendar"></div>
-
-<div class="legend">
-
-<div class="legend-item">
-<div class="legend-line legend-green"></div>
-Muchas horas
-</div>
-
-<div class="legend-item">
-<div class="legend-line legend-yellow"></div>
-Varias horas
-</div>
-
-<div class="legend-item">
-<div class="legend-line legend-red"></div>
-1–3 horas
-</div>
-
-<div class="legend-item">
-<div class="legend-line legend-gray"></div>
-Sin disponibilidad
-</div>
-
-</div>
-
-</div>
+  <p class="sub">
+    Elige el día y la hora que mejor te venga
+  </p>
 
 
-<div class="time-panel">
-
-<div class="selected-date" id="selectedDate">
-Selecciona un día
-</div>
-
-<div class="date-description" id="dateDescription">
-Aquí aparecerán las horas disponibles
-</div>
-
-<div id="hoursContainer">
-
-<div class="no-hours">
-Selecciona un día del calendario para ver sus horarios.
-</div>
-
-</div>
-
-</div>
-
-</div>
+  <div class="calendar-area">
 
 
-<div class="actions">
+    <!-- CALENDARIO -->
 
-<button class="back" onclick="show(1)">
-← Anterior
-</button>
+    <div>
 
-<button id="next2" disabled>
-Siguiente →
-</button>
+      <div class="calendar-header">
 
-</div>
+        <button
+          class="month-button"
+          id="prevMonth">
+          ‹
+        </button>
+
+        <h2 id="monthTitle">
+          Cargando...
+        </h2>
+
+        <button
+          class="month-button"
+          id="nextMonth">
+          ›
+        </button>
+
+      </div>
+
+
+      <div class="weekdays">
+
+        <div>Lun</div>
+        <div>Mar</div>
+        <div>Mié</div>
+        <div>Jue</div>
+        <div>Vie</div>
+        <div>Sáb</div>
+        <div>Dom</div>
+
+      </div>
+
+
+      <div
+        class="calendar"
+        id="calendar">
+      </div>
+
+
+      <div class="legend">
+
+        <div class="legend-item">
+          <span class="legend-green"></span>
+          Muchas horas
+        </div>
+
+        <div class="legend-item">
+          <span class="legend-yellow"></span>
+          Varias horas
+        </div>
+
+        <div class="legend-item">
+          <span class="legend-red"></span>
+          1–3 horas
+        </div>
+
+        <div class="legend-item">
+          <span class="legend-gray"></span>
+          Sin disponibilidad
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- HORAS -->
+
+    <div class="hours-panel">
+
+      <h2 id="selectedDate">
+        Selecciona un día
+      </h2>
+
+      <div
+        class="date-description"
+        id="dateDescription">
+        Aquí aparecerán las horas disponibles
+      </div>
+
+
+      <div id="hoursContainer">
+
+        <div class="no-hours">
+
+          Selecciona un día del calendario
+          para ver sus horarios.
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+
+  <div class="actions">
+
+    <button
+      class="back"
+      id="back1">
+      ← Anterior
+    </button>
+
+    <button
+      id="next2"
+      disabled>
+      Siguiente →
+    </button>
+
+  </div>
 
 </section>
 
 
-<!-- PASO 3 -->
+<!-- =========================
+     PASO 3
+========================= -->
 
 <section id="s3" class="hidden">
 
-<h1>Confirma tu hora</h1>
+  <h1>
+    Tus datos
+  </h1>
 
-<p class="sub">
-Revisa el horario que has seleccionado
-</p>
-
-<div class="summary" id="summary"></div>
-
-<div class="actions">
-
-<button class="back" onclick="show(2)">
-← Anterior
-</button>
-
-<button id="next3">
-Continuar →
-</button>
-
-</div>
-
-</section>
+  <p class="sub">
+    Completa tus datos para confirmar la reserva
+  </p>
 
 
-<!-- PASO 4 -->
+  <div
+    class="summary"
+    id="summary">
+  </div>
 
-<section id="s4" class="hidden">
 
-<h1>Tus datos</h1>
+  <div class="form">
 
-<p class="sub">
-Completa tus datos para confirmar la reserva
-</p>
+    <input
+      id="name"
+      placeholder="Nombre y apellidos">
 
-<div class="summary" id="summary2"></div>
+    <input
+      id="phone"
+      placeholder="Teléfono">
 
-<div class="form">
+    <input
+      id="email"
+      type="email"
+      placeholder="Email (opcional)">
 
-<input id="name" placeholder="Nombre y apellidos">
+  </div>
 
-<input id="phone" placeholder="Teléfono">
 
-<input id="email" type="email" placeholder="Email (opcional)">
+  <div class="actions">
 
-</div>
+    <button
+      class="back"
+      id="back2">
+      ← Anterior
+    </button>
 
-<div class="actions">
+    <button
+      id="reserve">
+      Confirmar reserva
+    </button>
 
-<button class="back" onclick="show(3)">
-← Anterior
-</button>
-
-<button id="reserve">
-Confirmar reserva
-</button>
-
-</div>
+  </div>
 
 </section>
 
 
-<!-- ÉXITO -->
+<!-- =========================
+     CONFIRMADO
+========================= -->
 
-<section id="ok" class="hidden success">
+<section
+  id="ok"
+  class="hidden success">
 
-<div class="ok">✓</div>
+  <div class="ok">
+    ✓
+  </div>
 
-<h1>Reserva confirmada</h1>
+  <h1>
+    Reserva confirmada
+  </h1>
 
-<p class="sub" id="oktext"></p>
+  <p
+    class="sub"
+    id="oktext">
+  </p>
 
 </section>
+
 
 </main>
 
@@ -884,73 +1185,85 @@ Confirmar reserva
 
 <script>
 
-/* ==========================================
-   CONFIGURACIÓN N8N
-========================================== */
+
+/* ==================================================
+   WEBHOOK DE N8N
+================================================== */
 
 const WEBHOOK_URL =
 "https://primer-practica-n8n.om5cjt.easypanel.host/webhook/Disponibilidad";
 
 
-/* ==========================================
+/* ==================================================
    SERVICIOS
-========================================== */
+================================================== */
 
 const services = [
 
-{
-name:"Servicio 1",
-duration:30,
-price:0
-},
+  {
+    name:"Servicio 1",
+    duration:30,
+    price:0
+  },
 
-{
-name:"Servicio 2",
-duration:45,
-price:0
-},
+  {
+    name:"Servicio 2",
+    duration:45,
+    price:0
+  },
 
-{
-name:"Servicio 3",
-duration:60,
-price:0
-},
+  {
+    name:"Servicio 3",
+    duration:60,
+    price:0
+  },
 
-{
-name:"Servicio 4",
-duration:30,
-price:0
-}
+  {
+    name:"Servicio 4",
+    duration:30,
+    price:0
+  }
 
 ];
 
 
-/* ==========================================
+/* ==================================================
    VARIABLES
-========================================== */
+================================================== */
 
-let svc=null;
+let svc = null;
 
-let selectedDate=null;
+let selectedDate = null;
 
-let selectedTime=null;
-
-let currentMonth=new Date();
-
-currentMonth.setDate(1);
+let selectedTime = null;
 
 
 /*
-   Guardamos aquí la disponibilidad
-   real recibida desde n8n.
+  Siempre empezamos en el mes actual.
 */
 
-const availability={};
+let currentMonth = new Date(
+  new Date().getFullYear(),
+  new Date().getMonth(),
+  1
+);
 
 
-/* ==========================================
+/*
+  Aquí guardaremos:
+
+  disponibilidad["2026-08-28"]
+  =
+  ["09:00","09:30",...]
+
+*/
+
+const availability = {};
+
+
+/* ==================================================
    ELEMENTOS
-========================================== */
+================================================== */
 
 const servicesEl =
 document.getElementById("services");
@@ -985,9 +1298,6 @@ document.getElementById("next2");
 const summary =
 document.getElementById("summary");
 
-const summary2 =
-document.getElementById("summary2");
-
 const nameInput =
 document.getElementById("name");
 
@@ -1001,525 +1311,869 @@ const reserve =
 document.getElementById("reserve");
 
 
-/* ==========================================
+/* ==================================================
    SERVICIOS
-========================================== */
+================================================== */
 
-services.forEach(x=>{
+services.forEach(service => {
 
-let e =
-document.createElement("div");
+  const element =
+  document.createElement("div");
 
-e.className="service";
+  element.className =
+  "service";
 
-e.innerHTML=`
 
-<div>
+  element.innerHTML = `
 
-<div class="meta">
-◷ ${x.duration} minutos
-</div>
+    <div>
 
-<h3>${x.name}</h3>
+      <div class="meta">
+        ◷ ${service.duration} minutos
+      </div>
 
-</div>
+      <h3>
+        ${service.name}
+      </h3>
 
-<div>
+    </div>
 
-<div class="price">
-${x.price ? "€"+x.price : "Consultar"}
-</div>
+    <div>
 
-<div class="check">
-✓
-</div>
+      <div class="price">
 
-</div>
+        ${
+          service.price
+          ? "€"+service.price
+          : "Consultar"
+        }
 
-`;
+      </div>
 
-e.onclick=()=>{
+      <div class="check">
+        ✓
+      </div>
 
-document
-.querySelectorAll(".service")
-.forEach(a=>
-a.classList.remove("selected")
-);
+    </div>
 
-e.classList.add("selected");
+  `;
 
-svc=x;
 
-next1.disabled=false;
+  element.onclick = () => {
 
-};
+    document
+      .querySelectorAll(".service")
+      .forEach(x =>
+        x.classList.remove("selected")
+      );
 
-servicesEl.appendChild(e);
+
+    element.classList.add("selected");
+
+
+    svc =
+    service;
+
+
+    next1.disabled =
+    false;
+
+  };
+
+
+  servicesEl.appendChild(element);
 
 });
 
 
-/* ==========================================
-   FORMATO FECHA
-========================================== */
+/* ==================================================
+   FECHA LOCAL YYYY-MM-DD
+================================================== */
 
 function formatDate(date){
 
-const y =
-date.getFullYear();
+  const year =
+  date.getFullYear();
 
-const m =
-String(date.getMonth()+1)
-.padStart(2,"0");
+  const month =
+  String(
+    date.getMonth()+1
+  ).padStart(2,"0");
 
-const d =
-String(date.getDate())
-.padStart(2,"0");
-
-return `${y}-${m}-${d}`;
-
-}
+  const day =
+  String(
+    date.getDate()
+  ).padStart(2,"0");
 
 
-/* ==========================================
-   FECHA MÍNIMA
-========================================== */
-
-function todayString(){
-
-const today =
-new Date();
-
-return formatDate(today);
+  return `${year}-${month}-${day}`;
 
 }
 
 
-/* ==========================================
+/* ==================================================
+   HOY
+================================================== */
+
+function todayDate(){
+
+  const today =
+  new Date();
+
+  today.setHours(
+    0,0,0,0
+  );
+
+  return today;
+
+}
+
+
+/* ==================================================
+   MES ACTUAL
+================================================== */
+
+function isCurrentMonth(){
+
+  const today =
+  todayDate();
+
+
+  return (
+
+    currentMonth.getFullYear()
+    ===
+    today.getFullYear()
+
+    &&
+
+    currentMonth.getMonth()
+    ===
+    today.getMonth()
+
+  );
+
+}
+
+
+/* ==================================================
    CONSULTAR N8N
-========================================== */
+================================================== */
 
 async function getAvailability(fecha){
 
-if(!svc){
-return [];
-}
+  try{
 
-try{
+    console.log(
+      "Consultando:",
+      fecha,
+      svc.duration
+    );
 
-const response =
-await fetch(
-WEBHOOK_URL,
-{
-method:"POST",
 
-headers:{
-"Content-Type":
-"application/json"
-},
-
-body:JSON.stringify({
-
-fecha:fecha,
-
-duracion:svc.duration
-
-})
-}
-);
-
-if(!response.ok){
-
-throw new Error(
-"HTTP "+response.status
-);
-
-}
-
-const data =
-await response.json();
-
-return data.horasDisponibles || [];
-
-}
-catch(error){
-
-console.error(
-"Error n8n:",
-error
-);
-
-return null;
-
-}
-
-}
-
-
-/* ==========================================
-   CARGAR DISPONIBILIDAD DEL MES
-========================================== */
-
-async function loadMonthAvailability(){
-
-if(!svc)return;
-
-
-/*
-   Limpiamos los datos anteriores.
-*/
-
-Object.keys(availability)
-.forEach(key=>{
-delete availability[key];
-});
-
-
-const year =
-currentMonth.getFullYear();
-
-const month =
-currentMonth.getMonth();
-
-const days =
-new Date(
-year,
-month+1,
-0
-).getDate();
-
-
-/*
-   Primero dibujamos el calendario
-   con indicadores de carga.
-*/
-
-renderCalendarLoading();
-
-
-/*
-   Consultamos cada día.
-*/
-
-const requests=[];
-
-for(
-let d=1;
-d<=days;
-d++
-){
-
-const fecha =
-formatDate(
-new Date(
-year,
-month,
-d
-)
-);
-
-requests.push(
-
-getAvailability(fecha)
-.then(times=>{
-
-availability[fecha]=
-times || [];
-
-})
-
-);
-
-}
-
-
-/*
-   Esperamos todas las consultas.
-*/
-
-await Promise.all(requests);
-
-
-/*
-   Volvemos a pintar
-   con datos reales.
-*/
-
-renderCalendar();
-
-
-/*
-   Si había un día seleccionado,
-   actualizamos sus horas.
-*/
-
-if(selectedDate){
-
-const times =
-availability[selectedDate];
-
-if(times){
-
-renderHours(times);
-
-}
-
-}
-
-}
-
-
-/* ==========================================
-   CALENDARIO DE CARGA
-========================================== */
-
-function renderCalendarLoading(){
-
-calendar.innerHTML="";
-
-const year =
-currentMonth.getFullYear();
-
-const month =
-currentMonth.getMonth();
-
-monthTitle.textContent =
-currentMonth.toLocaleDateString(
-"es-ES",
-{
-month:"long",
-year:"numeric"
-}
-);
-
-
-const firstDay =
-new Date(
-year,
-month,
-1
-);
-
-const weekday =
-firstDay.getDay();
-
-const offset =
-(weekday+6)%7;
-
-
-for(
-let i=0;
-i<offset;
-i++
-){
-
-const empty =
-document.createElement("div");
-
-empty.className=
-"day empty";
-
-calendar.appendChild(empty);
-
-}
-
-
-const days =
-new Date(
-year,
-month+1,
-0
-).getDate();
-
-
-for(
-let d=1;
-d<=days;
-d++
-){
-
-const day =
-document.createElement("div");
-
-day.className=
-"day loading-day";
-
-day.innerHTML=`
-
-<div class="day-number">
-${d}
-</div>
-
-<div class="availability-line loading-line"></div>
-
-`;
-
-calendar.appendChild(day);
-
-}
-
-}
-
-
-/* ==========================================
-   RENDER CALENDARIO
-========================================== */
-
-function renderCalendar(){
-
-  calendar.innerHTML="";
-
-  const year = currentMonth.getFullYear();
-  const month = currentMonth.getMonth();
-
-  monthTitle.textContent =
-    currentMonth.toLocaleDateString(
-      "es-ES",
+    const response =
+    await fetch(
+      WEBHOOK_URL,
       {
-        month:"long",
-        year:"numeric"
+
+        method:"POST",
+
+        headers:{
+          "Content-Type":
+          "application/json"
+        },
+
+        body:
+        JSON.stringify({
+
+          fecha:fecha,
+
+          duracion:
+          svc.duration
+
+        })
+
       }
     );
 
-  const firstDay =
-    new Date(year, month, 1);
 
-  const weekday =
-    firstDay.getDay();
+    if(!response.ok){
 
-  const offset =
-    (weekday + 6) % 7;
+      throw new Error(
+        "HTTP "+response.status
+      );
 
-  for(let i=0;i<offset;i++){
+    }
 
-    const empty =
-      document.createElement("div");
 
-    empty.className="day empty";
+    const data =
+    await response.json();
 
-    calendar.appendChild(empty);
+
+    console.log(
+      "Respuesta n8n:",
+      data
+    );
+
+
+    /*
+      Formato normal:
+
+      {
+        fecha:"2026-08-28",
+        duracion:30,
+        horasDisponibles:[
+          "09:00",
+          "09:30"
+        ]
+      }
+    */
+
+    if(
+      data &&
+      Array.isArray(
+        data.horasDisponibles
+      )
+    ){
+
+      return data.horasDisponibles;
+
+    }
+
+
+    /*
+      Compatibilidad si n8n
+      devuelve body.
+    */
+
+    if(
+      data &&
+      data.body &&
+      Array.isArray(
+        data.body.horasDisponibles
+      )
+    ){
+
+      return data.body.horasDisponibles;
+
+    }
+
+
+    /*
+      Compatibilidad con array.
+    */
+
+    if(
+      Array.isArray(data) &&
+      data.length
+    ){
+
+      if(
+        data[0].json &&
+        Array.isArray(
+          data[0].json.horasDisponibles
+        )
+      ){
+
+        return data[0]
+          .json
+          .horasDisponibles;
+
+      }
+
+    }
+
+
+    return [];
 
   }
 
-  const days =
+  catch(error){
+
+    console.error(
+      "Error n8n:",
+      error
+    );
+
+
+    return [];
+
+  }
+
+}
+
+
+/* ==================================================
+   CARGAR MES
+================================================== */
+
+async function loadMonthAvailability(){
+
+  if(!svc){
+    return;
+  }
+
+
+  /*
+    Limpiamos disponibilidad
+    anterior.
+  */
+
+  Object.keys(
+    availability
+  ).forEach(key => {
+
+    delete availability[key];
+
+  });
+
+
+  renderLoadingCalendar();
+
+
+  const year =
+  currentMonth.getFullYear();
+
+  const month =
+  currentMonth.getMonth();
+
+
+  const numberOfDays =
+  new Date(
+    year,
+    month+1,
+    0
+  ).getDate();
+
+
+  const today =
+  todayDate();
+
+
+  const requests = [];
+
+
+  /*
+    Consultamos SOLO hoy
+    y días futuros.
+
+    Los días pasados
+    ni siquiera llaman a n8n.
+  */
+
+  for(
+    let day=1;
+    day<=numberOfDays;
+    day++
+  ){
+
+    const date =
     new Date(
       year,
-      month + 1,
-      0
-    ).getDate();
+      month,
+      day
+    );
 
-  const today = new Date();
 
-  today.setHours(0,0,0,0);
+    date.setHours(
+      0,0,0,0
+    );
 
-  for(let d=1; d<=days; d++){
 
     const fecha =
-      formatDate(
-        new Date(year, month, d)
-      );
+    formatDate(date);
 
-    const fechaDia =
-      new Date(year, month, d);
 
-    fechaDia.setHours(0,0,0,0);
+    /*
+      Día pasado.
+    */
 
-    const times =
-      availability[fecha];
+    if(date < today){
 
-    const count =
-      Array.isArray(times)
-      ? times.length
-      : 0;
+      availability[fecha] =
+      [];
+
+      continue;
+
+    }
+
+
+    requests.push(
+
+      getAvailability(fecha)
+      .then(hours => {
+
+        availability[fecha] =
+        Array.isArray(hours)
+        ? hours
+        : [];
+
+      })
+
+    );
+
+  }
+
+
+  /*
+    Esperamos a que terminen
+    TODAS las consultas.
+  */
+
+  await Promise.all(
+    requests
+  );
+
+
+  renderCalendar();
+
+
+  /*
+    Si había un día seleccionado
+    actualizamos sus horas.
+  */
+
+  if(selectedDate){
+
+    const hours =
+    availability[
+      selectedDate
+    ] || [];
+
+
+    renderHours(hours);
+
+  }
+
+}
+
+
+/* ==================================================
+   CALENDARIO CARGANDO
+================================================== */
+
+function renderLoadingCalendar(){
+
+  calendar.innerHTML =
+  "";
+
+
+  const year =
+  currentMonth.getFullYear();
+
+  const month =
+  currentMonth.getMonth();
+
+
+  monthTitle.textContent =
+  currentMonth.toLocaleDateString(
+    "es-ES",
+    {
+      month:"long",
+      year:"numeric"
+    }
+  );
+
+
+  const first =
+  new Date(
+    year,
+    month,
+    1
+  );
+
+
+  /*
+    JS:
+
+    Domingo = 0
+    Lunes = 1
+
+    Nuestro calendario
+    empieza en lunes.
+  */
+
+  const offset =
+  (first.getDay()+6)%7;
+
+
+  for(
+    let i=0;
+    i<offset;
+    i++
+  ){
+
+    const empty =
+    document.createElement("div");
+
+    empty.className =
+    "day empty";
+
+    calendar.appendChild(
+      empty
+    );
+
+  }
+
+
+  const days =
+  new Date(
+    year,
+    month+1,
+    0
+  ).getDate();
+
+
+  const today =
+  todayDate();
+
+
+  for(
+    let d=1;
+    d<=days;
+    d++
+  ){
+
+    const date =
+    new Date(
+      year,
+      month,
+      d
+    );
+
+
+    date.setHours(
+      0,0,0,0
+    );
+
 
     const day =
-      document.createElement("div");
+    document.createElement("div");
 
-    day.className="day";
+    day.className =
+    "day";
 
 
-    /* DÍAS PASADOS */
+    if(date < today){
 
-    if(fechaDia < today){
+      day.classList.add(
+        "disabled"
+      );
 
-      day.classList.add("disabled");
-      day.classList.add("none");
+      day.classList.add(
+        "none"
+      );
 
-      day.innerHTML=`
+
+      day.innerHTML = `
 
         <div class="day-number">
           ${d}
         </div>
 
-        <div class="availability-line"></div>
+        <div class="availability-line">
+        </div>
 
       `;
-
-      calendar.appendChild(day);
-
-      continue;
-    }
-
-
-    /* DISPONIBILIDAD */
-
-    if(count >= 7){
-
-      day.classList.add("high");
-
-    }
-    else if(count >= 4){
-
-      day.classList.add("medium");
-
-    }
-    else if(count >= 1){
-
-      day.classList.add("low");
 
     }
     else{
 
-      day.classList.add("none");
-      day.classList.add("disabled");
+      day.innerHTML = `
+
+        <div class="day-number">
+          ${d}
+        </div>
+
+        <div
+          class="availability-line"
+          style="
+            background:#e5e7eb;
+            width:25px;
+          ">
+        </div>
+
+      `;
 
     }
 
 
-    /* HOY */
+    calendar.appendChild(
+      day
+    );
 
-    if(fechaDia.getTime() === today.getTime()){
+  }
 
-      day.classList.add("today");
+}
+
+
+/* ==================================================
+   RENDER CALENDARIO REAL
+================================================== */
+
+function renderCalendar(){
+
+  calendar.innerHTML =
+  "";
+
+
+  const year =
+  currentMonth.getFullYear();
+
+  const month =
+  currentMonth.getMonth();
+
+
+  monthTitle.textContent =
+  currentMonth.toLocaleDateString(
+    "es-ES",
+    {
+      month:"long",
+      year:"numeric"
+    }
+  );
+
+
+  const first =
+  new Date(
+    year,
+    month,
+    1
+  );
+
+
+  const offset =
+  (first.getDay()+6)%7;
+
+
+  /*
+    Huecos antes del día 1.
+  */
+
+  for(
+    let i=0;
+    i<offset;
+    i++
+  ){
+
+    const empty =
+    document.createElement("div");
+
+    empty.className =
+    "day empty";
+
+    calendar.appendChild(
+      empty
+    );
+
+  }
+
+
+  const days =
+  new Date(
+    year,
+    month+1,
+    0
+  ).getDate();
+
+
+  const today =
+  todayDate();
+
+
+  for(
+    let d=1;
+    d<=days;
+    d++
+  ){
+
+    const date =
+    new Date(
+      year,
+      month,
+      d
+    );
+
+
+    date.setHours(
+      0,0,0,0
+    );
+
+
+    const fecha =
+    formatDate(date);
+
+
+    const hours =
+    availability[fecha];
+
+
+    const count =
+    Array.isArray(hours)
+    ? hours.length
+    : 0;
+
+
+    const day =
+    document.createElement("div");
+
+
+    day.className =
+    "day";
+
+
+    /*
+      =========================
+      PASADOS
+      =========================
+    */
+
+    if(date < today){
+
+      day.classList.add(
+        "disabled"
+      );
+
+      day.classList.add(
+        "none"
+      );
+
+
+      day.innerHTML = `
+
+        <div class="day-number">
+          ${d}
+        </div>
+
+        <div class="availability-line">
+        </div>
+
+      `;
+
+
+      calendar.appendChild(
+        day
+      );
+
+
+      continue;
 
     }
 
 
-    /* FECHA SELECCIONADA */
+    /*
+      =========================
+      HOY
+      =========================
+    */
 
-    if(selectedDate === fecha){
+    if(
+      date.getTime()
+      ===
+      today.getTime()
+    ){
 
-      day.classList.add("selected");
+      day.classList.add(
+        "today"
+      );
 
     }
 
 
-    day.innerHTML=`
+    /*
+      =========================
+      DISPONIBILIDAD
+      =========================
+
+      7 o más:
+      VERDE
+
+      4-6:
+      AMARILLO
+
+      1-3:
+      ROJO
+
+      0:
+      SIN DISPONIBILIDAD
+    */
+
+    if(count >= 7){
+
+      day.classList.add(
+        "high"
+      );
+
+    }
+
+    else if(count >= 4){
+
+      day.classList.add(
+        "medium"
+      );
+
+    }
+
+    else if(count >= 1){
+
+      day.classList.add(
+        "low"
+      );
+
+    }
+
+    else{
+
+      day.classList.add(
+        "none"
+      );
+
+      day.classList.add(
+        "disabled"
+      );
+
+    }
+
+
+    /*
+      =========================
+      SELECCIONADO
+      =========================
+    */
+
+    if(
+      selectedDate === fecha
+    ){
+
+      day.classList.add(
+        "selected"
+      );
+
+    }
+
+
+    day.innerHTML = `
 
       <div class="day-number">
         ${d}
       </div>
 
-      <div class="availability-line"></div>
+      <div class="availability-line">
+      </div>
 
     `;
 
 
-    /* SOLO DÍAS CON HORAS */
+    /*
+      Solo permitimos
+      seleccionar si quedan
+      horas.
+    */
 
     if(count > 0){
 
-      day.onclick = () => {
+      day.onclick =
+      () => {
 
         selectDate(fecha);
 
@@ -1527,520 +2181,700 @@ function renderCalendar(){
 
     }
 
-    calendar.appendChild(day);
+
+    calendar.appendChild(
+      day
+    );
 
   }
 
+
+  /*
+    No permitimos volver
+    al mes anterior al actual.
+  */
+
+  prevMonth.disabled =
+  isCurrentMonth();
+
 }
 
-/* ==========================================
-   SELECCIONAR FECHA
-========================================== */
+
+/* ==================================================
+   SELECCIONAR DÍA
+================================================== */
 
 function selectDate(fecha){
 
-selectedDate=fecha;
-
-selectedTime=null;
-
-next2.disabled=true;
-
-renderCalendar();
+  const hours =
+  availability[fecha]
+  || [];
 
 
-const dateObj =
-new Date(
-fecha+"T12:00:00"
-);
+  /*
+    Por seguridad.
+  */
+
+  if(hours.length === 0){
+
+    return;
+
+  }
 
 
-selectedDateEl.textContent =
-dateObj.toLocaleDateString(
-"es-ES",
-{
-weekday:"long",
-day:"numeric",
-month:"long",
-year:"numeric"
+  selectedDate =
+  fecha;
+
+
+  selectedTime =
+  null;
+
+
+  next2.disabled =
+  true;
+
+
+  renderCalendar();
+
+
+  const date =
+  new Date(
+    fecha+"T12:00:00"
+  );
+
+
+  selectedDateEl.textContent =
+  date.toLocaleDateString(
+    "es-ES",
+    {
+      weekday:"long",
+      day:"numeric",
+      month:"long",
+      year:"numeric"
+    }
+  );
+
+
+  dateDescription.textContent =
+  hours.length === 1
+  ? "1 hora disponible"
+  : `${hours.length} horas disponibles`;
+
+
+  renderHours(hours);
+
 }
-);
 
 
-const times =
-availability[fecha] || [];
-
-
-dateDescription.textContent =
-times.length+
-(
-times.length===1
-?
-" hora disponible"
-:
-" horas disponibles"
-);
-
-
-renderHours(times);
-
-}
-
-
-/* ==========================================
+/* ==================================================
    MOSTRAR HORAS
-========================================== */
+================================================== */
 
-function renderHours(times){
+function renderHours(hours){
 
-hoursContainer.innerHTML="";
+  hoursContainer.innerHTML =
+  "";
 
 
-if(!times || times.length===0){
+  if(
+    !hours ||
+    hours.length === 0
+  ){
 
-hoursContainer.innerHTML=`
+    hoursContainer.innerHTML = `
 
-<div class="no-hours">
-No hay horarios disponibles
-para este día.
-</div>
+      <div class="no-hours">
 
-`;
+        No hay horarios disponibles
+        para este día.
 
-return;
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  /*
+    Mañana:
+    antes de las 14:00
+  */
+
+  const morning =
+  hours.filter(
+    time =>
+      parseInt(
+        time.split(":")[0]
+      ) < 14
+  );
+
+
+  /*
+    Tarde:
+    14:00 - 19:59
+  */
+
+  const afternoon =
+  hours.filter(
+    time => {
+
+      const h =
+      parseInt(
+        time.split(":")[0]
+      );
+
+
+      return h >= 14 && h < 20;
+
+    }
+  );
+
+
+  /*
+    Noche:
+    20:00+
+  */
+
+  const night =
+  hours.filter(
+    time =>
+      parseInt(
+        time.split(":")[0]
+      ) >= 20
+  );
+
+
+  createTimeGroup(
+    "Mañana",
+    morning
+  );
+
+
+  createTimeGroup(
+    "Tarde",
+    afternoon
+  );
+
+
+  createTimeGroup(
+    "Noche",
+    night
+  );
 
 }
 
 
-const morning =
-times.filter(
-t=>parseInt(t)<14
-);
-
-const afternoon =
-times.filter(
-t=>
-parseInt(t)>=14 &&
-parseInt(t)<20
-);
-
-const night =
-times.filter(
-t=>parseInt(t)>=20
-);
-
-
-createTimeGroup(
-"Mañana",
-morning
-);
-
-createTimeGroup(
-"Tarde",
-afternoon
-);
-
-createTimeGroup(
-"Noche",
-night
-);
-
-
-const info =
-document.createElement("div");
-
-info.className=
-"date-info";
-
-info.innerHTML=`
-
-<strong>
-${times.length}
-</strong>
-horarios disponibles para este día.
-
-`;
-
-hoursContainer.appendChild(info);
-
-}
-
-
-/* ==========================================
-   GRUPOS DE HORAS
-========================================== */
+/* ==================================================
+   GRUPO DE HORAS
+================================================== */
 
 function createTimeGroup(
-title,
-times
+  title,
+  times
 ){
 
-if(times.length===0)return;
+  if(times.length === 0){
+
+    return;
+
+  }
 
 
-const group =
-document.createElement("div");
-
-group.className=
-"time-group";
-
-group.innerHTML=`
-
-<div class="time-group-title">
-${title}
-</div>
-
-<div class="slots"></div>
-
-`;
+  const group =
+  document.createElement("div");
 
 
-const slots =
-group.querySelector(".slots");
+  group.className =
+  "time-group";
 
 
-times.forEach(t=>{
+  group.innerHTML = `
 
-const button =
-document.createElement("button");
+    <div class="time-group-title">
+      ${title}
+    </div>
 
-button.className=
-"slot";
+    <div class="slots">
+    </div>
 
-button.type=
-"button";
-
-button.textContent=t;
+  `;
 
 
-button.onclick=()=>{
-
-document
-.querySelectorAll(".slot")
-.forEach(x=>
-x.classList.remove(
-"selected"
-)
-);
-
-button.classList.add(
-"selected"
-);
-
-selectedTime=t;
-
-next2.disabled=false;
-
-};
+  const slots =
+  group.querySelector(
+    ".slots"
+  );
 
 
-slots.appendChild(button);
+  times.forEach(time => {
 
-});
+    const button =
+    document.createElement(
+      "button"
+    );
 
 
-hoursContainer.appendChild(group);
+    button.type =
+    "button";
+
+
+    button.className =
+    "slot";
+
+
+    button.textContent =
+    time;
+
+
+    button.onclick =
+    () => {
+
+      document
+        .querySelectorAll(
+          ".slot"
+        )
+        .forEach(x =>
+          x.classList.remove(
+            "selected"
+          )
+        );
+
+
+      button.classList.add(
+        "selected"
+      );
+
+
+      selectedTime =
+      time;
+
+
+      next2.disabled =
+      false;
+
+    };
+
+
+    slots.appendChild(
+      button
+    );
+
+  });
+
+
+  hoursContainer.appendChild(
+    group
+  );
 
 }
 
 
-/* ==========================================
-   CAMBIAR MES
-========================================== */
+/* ==================================================
+   MES ANTERIOR
+================================================== */
 
-prevMonth.onclick=async()=>{
+prevMonth.onclick =
+async () => {
 
-currentMonth.setMonth(
-currentMonth.getMonth()-1
-);
+  if(
+    isCurrentMonth()
+  ){
 
-selectedDate=null;
+    return;
 
-selectedTime=null;
-
-next2.disabled=true;
-
-hoursContainer.innerHTML=`
-
-<div class="no-hours">
-Selecciona un día del calendario
-para ver sus horarios.
-</div>
-
-`;
-
-await loadMonthAvailability();
-
-};
+  }
 
 
-nextMonth.onclick=async()=>{
+  currentMonth.setMonth(
+    currentMonth.getMonth()-1
+  );
 
-currentMonth.setMonth(
-currentMonth.getMonth()+1
-);
 
-selectedDate=null;
+  selectedDate =
+  null;
 
-selectedTime=null;
 
-next2.disabled=true;
+  selectedTime =
+  null;
 
-hoursContainer.innerHTML=`
 
-<div class="no-hours">
-Selecciona un día del calendario
-para ver sus horarios.
-</div>
+  next2.disabled =
+  true;
 
-`;
 
-await loadMonthAvailability();
+  hoursContainer.innerHTML = `
+
+    <div class="no-hours">
+
+      Selecciona un día del calendario
+      para ver sus horarios.
+
+    </div>
+
+  `;
+
+
+  await loadMonthAvailability();
 
 };
 
 
-/* ==========================================
-   NAVEGACIÓN
-========================================== */
+/* ==================================================
+   MES SIGUIENTE
+================================================== */
 
-function show(n){
+nextMonth.onclick =
+async () => {
 
-[
-"s1",
-"s2",
-"s3",
-"s4",
-"ok"
-]
-.forEach(id=>
-document
-.getElementById(id)
-.classList.add("hidden")
-);
+  currentMonth.setMonth(
+    currentMonth.getMonth()+1
+  );
 
 
-const id =
-n===1
-?"s1"
-:n===2
-?"s2"
-:n===3
-?"s3"
-:n===4
-?"s4"
-:"ok";
+  selectedDate =
+  null;
 
 
-document
-.getElementById(id)
-.classList.remove(
-"hidden"
-);
+  selectedTime =
+  null;
 
 
-document
-.getElementById("st1")
-.classList.toggle(
-"active",
-n===1
-);
+  next2.disabled =
+  true;
 
-document
-.getElementById("st2")
-.classList.toggle(
-"active",
-n===2
-);
 
-document
-.getElementById("st3")
-.classList.toggle(
-"active",
-n===3
-);
+  hoursContainer.innerHTML = `
 
-document
-.getElementById("st4")
-.classList.toggle(
-"active",
-n===4
-);
+    <div class="no-hours">
+
+      Selecciona un día del calendario
+      para ver sus horarios.
+
+    </div>
+
+  `;
+
+
+  await loadMonthAvailability();
+
+};
+
+
+/* ==================================================
+   MOSTRAR PASO
+================================================== */
+
+function showStep(number){
+
+  document
+    .getElementById("s1")
+    .classList.add("hidden");
+
+  document
+    .getElementById("s2")
+    .classList.add("hidden");
+
+  document
+    .getElementById("s3")
+    .classList.add("hidden");
+
+  document
+    .getElementById("ok")
+    .classList.add("hidden");
+
+
+  if(number === 1){
+
+    document
+      .getElementById("s1")
+      .classList.remove("hidden");
+
+  }
+
+
+  if(number === 2){
+
+    document
+      .getElementById("s2")
+      .classList.remove("hidden");
+
+  }
+
+
+  if(number === 3){
+
+    document
+      .getElementById("s3")
+      .classList.remove("hidden");
+
+  }
+
+
+  document
+    .getElementById("st1")
+    .classList.toggle(
+      "active",
+      number === 1
+    );
+
+
+  document
+    .getElementById("st2")
+    .classList.toggle(
+      "active",
+      number === 2
+    );
+
+
+  document
+    .getElementById("st3")
+    .classList.toggle(
+      "active",
+      number === 3
+    );
 
 }
 
 
-/* ==========================================
-   PASO 1
-========================================== */
+/* ==================================================
+   PASO 1 → PASO 2
+================================================== */
 
-next1.onclick=async()=>{
+next1.onclick =
+async () => {
 
-show(2);
+  if(!svc){
 
-selectedDate=null;
+    return;
 
-selectedTime=null;
-
-next2.disabled=true;
-
-hoursContainer.innerHTML=`
-
-<div class="no-hours">
-Selecciona un día del calendario
-para ver sus horarios.
-</div>
-
-`;
-
-await loadMonthAvailability();
-
-};
+  }
 
 
-/* ==========================================
-   PASO 2
-========================================== */
-
-next2.onclick=()=>{
-
-if(
-!selectedDate ||
-!selectedTime ||
-!svc
-)return;
+  showStep(2);
 
 
-const dateObj =
-new Date(
-selectedDate+"T12:00:00"
-);
+  selectedDate =
+  null;
 
 
-const formatted =
-dateObj.toLocaleDateString(
-"es-ES",
-{
-weekday:"long",
-day:"numeric",
-month:"long",
-year:"numeric"
-}
-);
+  selectedTime =
+  null;
 
 
-summary.innerHTML=`
-
-<b>${svc.name}</b>
-
-<br><br>
-
-📅 ${formatted}
-
-<br>
-
-🕐 ${selectedTime}
-
-<br>
-
-⏱️ ${svc.duration} minutos
-
-<br><br>
-
-<b>Precio:</b>
-${
-svc.price
-?
-"€"+svc.price
-:
-"Consultar"
-}
-
-`;
+  next2.disabled =
+  true;
 
 
-show(3);
+  hoursContainer.innerHTML = `
+
+    <div class="loading">
+
+      Cargando disponibilidad
+      del calendario...
+
+    </div>
+
+  `;
+
+
+  await loadMonthAvailability();
 
 };
 
 
-/* ==========================================
-   PASO 3
-========================================== */
+/* ==================================================
+   PASO 2 → PASO 3
+================================================== */
+
+next2.onclick =
+() => {
+
+  if(
+    !svc ||
+    !selectedDate ||
+    !selectedTime
+  ){
+
+    return;
+
+  }
+
+
+  const date =
+  new Date(
+    selectedDate+"T12:00:00"
+  );
+
+
+  const formatted =
+  date.toLocaleDateString(
+    "es-ES",
+    {
+      weekday:"long",
+      day:"numeric",
+      month:"long",
+      year:"numeric"
+    }
+  );
+
+
+  summary.innerHTML = `
+
+    <b>${svc.name}</b>
+
+    <br>
+
+    📅 ${formatted}
+
+    <br>
+
+    🕐 ${selectedTime}
+
+    <br>
+
+    ⏱️ ${svc.duration} minutos
+
+    <br><br>
+
+    <b>Precio:</b>
+
+    ${
+      svc.price
+      ? "€"+svc.price
+      : "Consultar"
+    }
+
+  `;
+
+
+  showStep(3);
+
+};
+
+
+/* ==================================================
+   VOLVER PASO 2 → PASO 1
+================================================== */
 
 document
-.getElementById("next3")
-.onclick=()=>{
+  .getElementById("back1")
+  .onclick =
+  () => {
 
-summary2.innerHTML=
-summary.innerHTML;
+    showStep(1);
 
-show(4);
+  };
+
+
+/* ==================================================
+   VOLVER PASO 3 → PASO 2
+================================================== */
+
+document
+  .getElementById("back2")
+  .onclick =
+  () => {
+
+    showStep(2);
+
+  };
+
+
+/* ==================================================
+   CONFIRMAR RESERVA
+================================================== */
+
+reserve.onclick =
+() => {
+
+  const clientName =
+  nameInput.value.trim();
+
+  const clientPhone =
+  phoneInput.value.trim();
+
+
+  if(
+    !clientName ||
+    !clientPhone
+  ){
+
+    alert(
+      "Rellena nombre y teléfono."
+    );
+
+    return;
+
+  }
+
+
+  /*
+    De momento mostramos
+    confirmación.
+
+    Después conectaremos
+    este botón con el segundo
+    webhook de n8n para crear
+    el evento en Google Calendar
+    y enviar el mensaje.
+  */
+
+
+  document
+    .getElementById("s3")
+    .classList.add(
+      "hidden"
+    );
+
+
+  document
+    .getElementById("ok")
+    .classList.remove(
+      "hidden"
+    );
+
+
+  document
+    .getElementById("st3")
+    .classList.add(
+      "active"
+    );
+
+
+  const date =
+  new Date(
+    selectedDate+"T12:00:00"
+  );
+
+
+  const formatted =
+  date.toLocaleDateString(
+    "es-ES",
+    {
+      weekday:"long",
+      day:"numeric",
+      month:"long",
+      year:"numeric"
+    }
+  );
+
+
+  document
+    .getElementById("oktext")
+    .textContent =
+
+    `${svc.name} · ${formatted} a las ${selectedTime}.`;
 
 };
 
 
-/* ==========================================
-   CONFIRMAR
-========================================== */
+/* ==================================================
+   INICIO
+================================================== */
 
-reserve.onclick=()=>{
-
-if(
-!nameInput.value.trim() ||
-!phoneInput.value.trim()
-){
-
-alert(
-"Rellena nombre y teléfono."
-);
-
-return;
-
-}
-
-
-document
-.getElementById("s4")
-.classList.add(
-"hidden"
-);
-
-document
-.getElementById("ok")
-.classList.remove(
-"hidden"
-);
-
-
-document
-.getElementById("st4")
-.classList.add(
-"active"
-);
-
-
-const dateObj =
-new Date(
-selectedDate+"T12:00:00"
-);
-
-
-const formatted =
-dateObj.toLocaleDateString(
-"es-ES",
-{
-weekday:"long",
-day:"numeric",
-month:"long",
-year:"numeric"
-}
-);
-
-
-oktext.textContent =
-`${svc.name} · ${formatted} a las ${selectedTime}.`;
-
-};
+showStep(1);
 
 </script>
 
