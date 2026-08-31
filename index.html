@@ -2648,31 +2648,30 @@ function renderServices(){
     `;
 
 
-    element.onclick = () => {
+element.onclick = () => {
 
-      document
-        .querySelectorAll(".service")
-        .forEach(
-          x =>
-            x.classList.remove(
-              "selected"
-            )
-        );
+  // Si estamos haciendo una reserva nueva,
+  // eliminamos cualquier modo de reagendar antiguo
+  localStorage.removeItem("reschedulingBooking");
 
+  document
+    .querySelectorAll(".service")
+    .forEach(
+      x =>
+        x.classList.remove(
+          "selected"
+        )
+    );
 
-      element.classList.add(
-        "selected"
-      );
+  element.classList.add(
+    "selected"
+  );
 
+  svc = service;
 
-      svc =
-        service;
+  next1.disabled = false;
 
-
-      next1.disabled =
-        false;
-
-    };
+};
 
 
     servicesEl.appendChild(
@@ -3934,7 +3933,33 @@ document
   .onclick =
   () => {
 
+    // Salir completamente del modo reagendar
+    localStorage.removeItem("reschedulingBooking");
+
+    // Limpiar selección anterior
+    svc = null;
+    selectedDate = null;
+    selectedTime = null;
+
+    // Limpiar formulario
+    nameInput.value = "";
+    phoneInput.value = "";
+    emailInput.value = "";
+
+    // Limpiar estados de validación
+    phoneInput.classList.remove("valid", "invalid");
+    emailInput.classList.remove("valid", "invalid");
+
+    phoneError.classList.remove("show");
+    emailError.classList.remove("show");
+
+    // Volver a empezar desde cero
+    next1.disabled = true;
+    next2.disabled = true;
+
     showStep(1);
+
+    renderServices();
 
   };
 
