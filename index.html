@@ -1155,6 +1155,12 @@ button:disabled{
     id="oktext">
   </p>
 
+  <button
+    type="button"
+    id="newBookingAfterSuccess">
+    + Hacer otra reserva
+  </button>
+
 </section>
 
 
@@ -4914,6 +4920,95 @@ showStep(1);
 renderBookings();
 
 loadBookingFromUrl();
+
+  /* =====================================================
+   CERRAR MIS RESERVAS AL HACER CLICK FUERA
+===================================================== */
+
+document.addEventListener("click", (event) => {
+
+  const button =
+    document.getElementById("myBookingsButton");
+
+  if(!bookingsPanel.classList.contains("hidden")){
+
+    if(
+      !bookingsPanel.contains(event.target) &&
+      !button.contains(event.target)
+    ){
+
+      bookingsPanel.classList.add("hidden");
+
+    }
+
+  }
+
+});
+
+
+/* =====================================================
+   HACER OTRA RESERVA
+===================================================== */
+
+document
+  .getElementById("newBookingAfterSuccess")
+  .onclick = () => {
+
+    /* Limpiar servicio */
+    svc = null;
+
+    /* Limpiar fecha y hora */
+    selectedDate = null;
+    selectedTime = null;
+
+    /* Limpiar formulario */
+    nameInput.value = "";
+    phoneInput.value = "";
+    emailInput.value = "";
+
+    /* Limpiar estados de validación */
+    phoneInput.classList.remove(
+      "valid",
+      "invalid"
+    );
+
+    emailInput.classList.remove(
+      "valid",
+      "invalid"
+    );
+
+    phoneError.classList.remove("show");
+    emailError.classList.remove("show");
+
+    /* Bloquear botones hasta elegir servicio */
+    next1.disabled = true;
+    next2.disabled = true;
+
+    /* Restaurar botón de confirmar */
+    reserve.disabled = false;
+    reserve.textContent = t("confirm");
+
+    /* Eliminar modo reagendar */
+    localStorage.removeItem(
+      "reschedulingBooking"
+    );
+
+    /* Cerrar Mis reservas */
+    bookingsPanel.classList.add("hidden");
+
+    /* Volver al paso 1 */
+    showStep(1);
+
+    /* Volver a pintar servicios */
+    renderServices();
+
+    /* Subir arriba */
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+
+  };
 
 </script>
 
