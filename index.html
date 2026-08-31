@@ -1142,6 +1142,10 @@ button:disabled{
   id="ok"
   class="hidden success">
 
+  <section
+  id="ok"
+  class="hidden success">
+
   <div class="ok">
     ✓
   </div>
@@ -5010,6 +5014,71 @@ document
 
   };
 
+  /* =====================================================
+   HACER OTRA RESERVA
+===================================================== */
+
+const newBookingAfterSuccess =
+  document.getElementById("newBookingAfterSuccess");
+
+if(newBookingAfterSuccess){
+
+  newBookingAfterSuccess.onclick = () => {
+
+    // Limpiar servicio
+    svc = null;
+
+    // Limpiar fecha y hora
+    selectedDate = null;
+    selectedTime = null;
+
+    // Limpiar formulario
+    nameInput.value = "";
+    phoneInput.value = "";
+    emailInput.value = "";
+
+    // Limpiar validaciones
+    phoneInput.classList.remove("valid", "invalid");
+    emailInput.classList.remove("valid", "invalid");
+
+    phoneError.classList.remove("show");
+    emailError.classList.remove("show");
+
+    // Resetear botones
+    next1.disabled = true;
+    next2.disabled = true;
+
+    reserve.disabled = false;
+    reserve.textContent = t("confirm");
+
+    // Salir del modo reagendar
+    localStorage.removeItem("reschedulingBooking");
+
+    // Cerrar Mis reservas
+    bookingsPanel.classList.add("hidden");
+
+    // Volver al paso 1
+    showStep(1);
+
+    // Pintar servicios de nuevo
+    renderServices();
+
+    // Limpiar horarios
+    hoursContainer.innerHTML = `
+      <div class="no-hours">
+        ${t("selectDayCalendar")}
+      </div>
+    `;
+
+    // Subir arriba
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+
+  };
+
+}
 </script>
 
 </body>
