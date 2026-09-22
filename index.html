@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>Reserva tu cita · Reserva online</title>
-<meta name="description" content="Reserva tu cita online de forma rápida, sencilla y segura.">
+<title id="pageTitle">Reserva tu cita · Reserva online</title>
+<meta id="pageDescription" name="description" content="Reserva tu cita online de forma rápida, sencilla y segura.">
 
 <style>
 :root{
@@ -108,6 +108,7 @@ header{
 .profile::before{content:"";display:block;position:absolute;inset:0 0 auto;height:92px;background:linear-gradient(135deg,#f0edff,#faf9ff);z-index:0}
 .profile>*{position:relative;z-index:1}
 .avatar{width:100px;height:100px;border-radius:28px;margin:12px auto 18px;background:#fff;border:6px solid #fff;box-shadow:0 12px 30px rgba(20,25,45,.10);display:grid;place-items:center;color:var(--brand);font-size:21px;font-weight:900;letter-spacing:.03em}
+.avatar img{width:100%;height:100%;object-fit:contain;border-radius:20px;display:block}.avatar.has-image{padding:0;overflow:hidden}
 .profile h2{margin:0 0 7px;font-size:20px;letter-spacing:-.02em}
 .profile p{color:var(--muted);font-size:13px;margin:7px 0;line-height:1.5}
 .profile .business-badge{display:inline-flex;align-items:center;gap:6px;margin:5px 0 15px;padding:6px 10px;border-radius:999px;background:var(--success-soft);color:#177646;font-size:11px;font-weight:800}
@@ -271,11 +272,11 @@ button:disabled{background:#d7d8df;color:#fff;box-shadow:none;cursor:not-allowed
 <div class="container">
 
 <aside class="card profile">
-  <div class="avatar">LOGO</div>
-  <div class="business-badge">● Reserva online</div>
-  <h2>Nombre del negocio</h2>
-  <p>Tu profesión o servicio</p>
-  <p>📍 Tu dirección</p>
+  <div class="avatar" id="businessLogo">LOGO</div>
+  <div class="business-badge" id="businessBadge">● Reserva online</div>
+  <h2 id="businessName">Nombre del negocio</h2>
+  <p id="businessProfession">Tu profesión o servicio</p>
+  <p id="businessAddress">📍 Tu dirección</p>
   <div class="profile-divider"></div>
   <div class="trust">
     <div><span>✓</span> Reserva en pocos pasos</div>
@@ -589,27 +590,113 @@ button:disabled{background:#d7d8df;color:#fff;box-shadow:none;cursor:not-allowed
 <script>
 
 /* =====================================================
+   CONFIGURACIÓN MASTER / WHITE-LABEL
+
+   PARA CADA CLIENTE SOLO TIENES QUE CAMBIAR ESTA ZONA.
+   El resto de la página está preparado para reutilizarse.
+===================================================== */
+
+const BUSINESS_CONFIG = {
+
+  business: {
+    name: "Nombre del negocio",
+    profession: "Tu profesión o servicio",
+    address: "Tu dirección",
+    logo: "", // URL de logo. Déjalo vacío para mostrar las iniciales.
+    badge: "Reserva online",
+    pageTitle: "Reserva tu cita · Reserva online",
+    pageDescription: "Reserva tu cita online de forma rápida, sencilla y segura."
+  },
+
+  brand: {
+    primary: "#6c5ce7",
+    dark: "#5747d6",
+    soft: "#f0edff"
+  },
+
+  booking: {
+    maxMonthsAhead: 2,
+    timezone: "Europe/Madrid"
+  },
+
+  services: [
+    { name: "Servicio 1", duration: 30, price: 0 },
+    { name: "Servicio 2", duration: 45, price: 0 },
+    { name: "Servicio 3", duration: 60, price: 0 },
+    { name: "Servicio 4", duration: 30, price: 0 }
+  ],
+
+  webhooks: {
+    availability: "https://primer-practica-n8n.om5cjt.easypanel.host/webhook/Disponibilidad",
+    reservation: "https://primer-practica-n8n.om5cjt.easypanel.host/webhook/Reservar",
+    bookings: "https://primer-practica-n8n.om5cjt.easypanel.host/webhook/MisReservas",
+    cancel: "https://primer-practica-n8n.om5cjt.easypanel.host/webhook/Cancelar",
+    reschedule: "https://primer-practica-n8n.om5cjt.easypanel.host/webhook/Reagendar"
+  }
+
+};
+
+
+function applyBusinessConfig(){
+
+  const root = document.documentElement;
+
+  root.style.setProperty("--brand", BUSINESS_CONFIG.brand.primary);
+  root.style.setProperty("--brand-dark", BUSINESS_CONFIG.brand.dark);
+  root.style.setProperty("--brand-soft", BUSINESS_CONFIG.brand.soft);
+
+  document.title = BUSINESS_CONFIG.business.pageTitle;
+
+  const description = document.getElementById("pageDescription");
+  if(description){
+    description.content = BUSINESS_CONFIG.business.pageDescription;
+  }
+
+  const name = document.getElementById("businessName");
+  const profession = document.getElementById("businessProfession");
+  const address = document.getElementById("businessAddress");
+  const badge = document.getElementById("businessBadge");
+  const logo = document.getElementById("businessLogo");
+
+  if(name) name.textContent = BUSINESS_CONFIG.business.name;
+  if(profession) profession.textContent = BUSINESS_CONFIG.business.profession;
+  if(address) address.textContent = "📍 " + BUSINESS_CONFIG.business.address;
+  if(badge) badge.textContent = "● " + BUSINESS_CONFIG.business.badge;
+
+  if(logo){
+    const logoUrl = BUSINESS_CONFIG.business.logo.trim();
+
+    if(logoUrl){
+      logo.innerHTML = `<img src="${escapeHtml(logoUrl)}" alt="${escapeHtml(BUSINESS_CONFIG.business.name)}">`;
+      logo.classList.add("has-image");
+    }else{
+      const initials = BUSINESS_CONFIG.business.name
+        .split(/\s+/)
+        .filter(Boolean)
+        .slice(0,2)
+        .map(word => word[0].toUpperCase())
+        .join("");
+
+      logo.textContent = initials || "LOGO";
+      logo.classList.remove("has-image");
+    }
+  }
+
+}
+
+
+applyBusinessConfig();
+
+
+/* =====================================================
    WEBHOOKS N8N
 ===================================================== */
 
-const WEBHOOK_URL =
-"https://primer-practica-n8n.om5cjt.easypanel.host/webhook/Disponibilidad";
-
-const RESERVATION_WEBHOOK =
-"https://primer-practica-n8n.om5cjt.easypanel.host/webhook/Reservar";
-
-/*
-   ESTOS 3 LOS CREAREMOS EN N8N DESPUÉS
-*/
-
-const MY_BOOKINGS_WEBHOOK =
-"https://primer-practica-n8n.om5cjt.easypanel.host/webhook/MisReservas";
-
-const CANCEL_WEBHOOK =
-"https://primer-practica-n8n.om5cjt.easypanel.host/webhook/Cancelar";
-
-const RESCHEDULE_WEBHOOK =
-"https://primer-practica-n8n.om5cjt.easypanel.host/webhook/Reagendar";
+const WEBHOOK_URL = BUSINESS_CONFIG.webhooks.availability;
+const RESERVATION_WEBHOOK = BUSINESS_CONFIG.webhooks.reservation;
+const MY_BOOKINGS_WEBHOOK = BUSINESS_CONFIG.webhooks.bookings;
+const CANCEL_WEBHOOK = BUSINESS_CONFIG.webhooks.cancel;
+const RESCHEDULE_WEBHOOK = BUSINESS_CONFIG.webhooks.reschedule;
 
 
 /* =====================================================
@@ -1394,46 +1481,7 @@ function renderWeekdays(){
    SERVICIOS
 ===================================================== */
 
-const services = [
-
-  {
-    name:"Servicio 1",
-    duration:30,
-    price:0
-  },
-
-  {
-    name:"Servicio 2",
-    duration:45,
-    price:0
-  },
-
-  {
-    name:"Servicio 3",
-    duration:60,
-    price:0
-  },
-
-  {
-    name:"Servicio 4",
-    duration:30,
-    price:0
-  }
-
-];
-
-
-let svc = null;
-let selectedDate = null;
-let selectedTime = null;
-let currentMonth =
-new Date(
-  new Date().getFullYear(),
-  new Date().getMonth(),
-  1
-);
-
-const availability = {};
+const services = BUSINESS_CONFIG.services;
 
 
 /* =====================================================
@@ -2168,7 +2216,7 @@ function maxBookingDate(){
   const max = todayDate();
 
   max.setMonth(
-    max.getMonth()+2
+    max.getMonth()+BUSINESS_CONFIG.booking.maxMonthsAhead
   );
 
   return max;
