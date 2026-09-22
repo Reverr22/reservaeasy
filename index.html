@@ -2424,20 +2424,11 @@ async function cancelSavedBooking(
     }
 
 
-    booking.status =
-      "cancelled";
+    bookings.splice(index, 1);
 
+saveBookings(bookings);
 
-    bookings[index] =
-      booking;
-
-
-    saveBookings(
-      bookings
-    );
-
-
-    renderBookings();
+renderBookings();
 
 
     alert(
