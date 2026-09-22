@@ -1511,9 +1511,44 @@ function getSavedBookings(){
         localStorage.getItem("myBookings") || "[]"
       );
 
-    return Array.isArray(data)
-      ? data
-      : [];
+    if(!Array.isArray(data)){
+      return [];
+    }
+
+    /*
+      Eliminamos automáticamente las reservas cuya fecha ya ha pasado.
+      Se compara por fecha y hora cuando ambas existen.
+    */
+    const now = new Date();
+
+    const activeBookings = data.filter(booking => {
+
+      if(!booking || !booking.fecha){
+        return true;
+      }
+
+      const time = booking.hora || "23:59";
+      const bookingDate = new Date(
+        `${booking.fecha}T${time}:00`
+      );
+
+      if(Number.isNaN(bookingDate.getTime())){
+        return true;
+      }
+
+      return bookingDate >= now;
+
+    });
+
+    /* Guardamos la lista limpia para que desaparezcan de verdad. */
+    if(activeBookings.length !== data.length){
+      localStorage.setItem(
+        "myBookings",
+        JSON.stringify(activeBookings)
+      );
+    }
+
+    return activeBookings;
 
   }catch(error){
 
@@ -2122,6 +2157,51 @@ function todayDate(){
 }
 
 
+/* =====================================================
+   VENTANA DE RESERVAS
+   Solo se permite reservar desde hoy hasta 2 meses
+   naturales hacia delante.
+===================================================== */
+
+function maxBookingDate(){
+
+  const max = todayDate();
+
+  max.setMonth(
+    max.getMonth()+2
+  );
+
+  return max;
+
+}
+
+
+function isDateBookable(date){
+
+  const day = new Date(date);
+
+  day.setHours(0,0,0,0);
+
+  const min = todayDate();
+  const max = maxBookingDate();
+
+  return day >= min && day <= max;
+
+}
+
+
+function isMaxBookingMonth(){
+
+  const max = maxBookingDate();
+
+  return (
+    currentMonth.getFullYear() === max.getFullYear() &&
+    currentMonth.getMonth() === max.getMonth()
+  );
+
+}
+
+
 function isCurrentMonth(){
 
   const today =
@@ -2346,6 +2426,9 @@ async function loadMonthAvailability(){
   const today =
     todayDate();
 
+  const maxDate =
+    maxBookingDate();
+
   const requests = [];
 
 
@@ -2371,7 +2454,7 @@ async function loadMonthAvailability(){
       formatDate(date);
 
 
-    if(date < today){
+    if(date < today || date > maxDate){
 
       availability[fecha] =
         [];
@@ -2598,6 +2681,9 @@ function renderCalendar(){
   const today =
     todayDate();
 
+  const maxDate =
+    maxBookingDate();
+
 
   for(
     let d=1;
@@ -2645,7 +2731,7 @@ function renderCalendar(){
       "day";
 
 
-    if(date < today){
+    if(date < today || date > maxDate){
 
       day.classList.add(
         "disabled",
@@ -2748,7 +2834,7 @@ function renderCalendar(){
     `;
 
 
-    if(count > 0){
+    if(count > 0 && isDateBookable(date)){
 
       day.onclick =
         () => {
@@ -2769,6 +2855,9 @@ function renderCalendar(){
 
   prevMonth.disabled =
     isCurrentMonth();
+
+  nextMonth.disabled =
+    isMaxBookingMonth();
 
 }
 
@@ -3091,6 +3180,10 @@ async () => {
 
 nextMonth.onclick =
 async () => {
+
+  if(isMaxBookingMonth()){
+    return;
+  }
 
   currentMonth.setMonth(
     currentMonth.getMonth()+1
@@ -3532,6 +3625,12 @@ emailInput.addEventListener(
 
 reserve.onclick =
 async () => {
+
+  /* Seguridad adicional: nunca permitir una reserva fuera de la ventana. */
+  if(!selectedDate || !isDateBookable(new Date(selectedDate + "T00:00:00"))){
+    alert(t("selectDayCalendar"));
+    return;
+  }
 
   const clientName =
     nameInput.value.trim();
